@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg_new"
+    android:orientation="vertical">
+
+    <include
+
+        layout="@layout/layout_head" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+        android:layout_marginTop="@dimen/base15dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/install_text_first"
+            android:text="@string/name" />
+
+        <EditText
+            android:id="@+id/et_register_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_marginLeft="@dimen/base40dp"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_toRightOf="@+id/textView3"
+            android:background="@null"
+            android:hint="@string/name_hint"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/base15dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/install_text_first"
+            android:text="@string/company" />
+
+        <Spinner
+            android:id="@+id/sp_company"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/base20dp"
+            android:layout_toEndOf="@id/textView1"
+
+            android:layout_height="match_parent">
+
+
+        </Spinner>
+
+
+        <!--<com.hzwc.intelligent.lock.model.spinner.NiceSpinner-->
+            <!--android:id="@+id/tv_company"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignBaseline="@+id/textView1"-->
+            <!--android:layout_alignBottom="@+id/textView1"-->
+            <!--android:layout_marginLeft="@dimen/base20dp"-->
+            <!--android:layout_toEndOf="@+id/textView1"-->
+            <!--android:layout_toRightOf="@+id/textView1"-->
+            <!--android:background="@null"-->
+            <!--android:hint="@string/company_hint"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/color_black"-->
+            <!--android:textSize="@dimen/base15dp" />-->
+
+
+    </RelativeLayout>
+
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/install_text_first"
+            android:text="@string/department" />
+
+        <Spinner
+            android:id="@+id/sp_department"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/base20dp"
+            android:layout_toEndOf="@id/textView2"
+
+            android:layout_height="match_parent">
+
+
+        </Spinner>
+
+        <!--<com.hzwc.intelligent.lock.model.spinner.NiceSpinner-->
+
+            <!--android:id="@+id/tv_register_department"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignBaseline="@+id/textView2"-->
+            <!--android:layout_alignBottom="@+id/textView2"-->
+            <!--android:layout_marginLeft="@dimen/base20dp"-->
+            <!--android:layout_toEndOf="@+id/textView2"-->
+            <!--android:layout_toRightOf="@+id/textView2"-->
+            <!--android:hint="@string/department_hin"-->
+            <!--android:background="@null"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/color_black"-->
+            <!--android:textSize="@dimen/base15dp" />-->
+
+
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/install_text_first"
+            android:text="@string/post" />
+
+        <Spinner
+            android:id="@+id/sp_post"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/base20dp"
+            android:layout_toEndOf="@id/textView4"
+
+            android:layout_height="match_parent">
+
+
+        </Spinner>
+
+
+
+        <!--<com.hzwc.intelligent.lock.model.spinner.NiceSpinner-->
+
+            <!--android:id="@+id/tv_register_post"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignBaseline="@+id/textView4"-->
+            <!--android:layout_alignBottom="@+id/textView4"-->
+            <!--android:layout_marginLeft="@dimen/base20dp"-->
+            <!--android:layout_toEndOf="@+id/textView4"-->
+            <!--android:layout_toRightOf="@+id/textView4"-->
+            <!--android:background="@null"-->
+            <!--android:hint="@string/post_hin"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/color_black"-->
+            <!--android:textSize="@dimen/base15dp" />-->
+
+
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/install_text_first"
+            android:text="市级" />
+
+        <Spinner
+            android:id="@+id/sp_city"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/base20dp"
+            android:layout_toEndOf="@id/textView5"
+
+            android:layout_height="match_parent">
+
+
+        </Spinner>
+
+
+
+        <!--<com.hzwc.intelligent.lock.model.spinner.NiceSpinner-->
+
+        <!--android:id="@+id/tv_register_post"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignBaseline="@+id/textView4"-->
+        <!--android:layout_alignBottom="@+id/textView4"-->
+        <!--android:layout_marginLeft="@dimen/base20dp"-->
+        <!--android:layout_toEndOf="@+id/textView4"-->
+        <!--android:layout_toRightOf="@+id/textView4"-->
+        <!--android:background="@null"-->
+        <!--android:hint="@string/post_hin"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:textColor="@color/color_black"-->
+        <!--android:textSize="@dimen/base15dp" />-->
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/install_text_first"
+            android:text="区县" />
+
+        <Spinner
+            android:id="@+id/sp_area"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/base20dp"
+            android:layout_toEndOf="@id/textView6"
+
+            android:layout_height="match_parent">
+
+
+        </Spinner>
+
+
+
+        <!--<com.hzwc.intelligent.lock.model.spinner.NiceSpinner-->
+
+        <!--android:id="@+id/tv_register_post"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignBaseline="@+id/textView4"-->
+        <!--android:layout_alignBottom="@+id/textView4"-->
+        <!--android:layout_marginLeft="@dimen/base20dp"-->
+        <!--android:layout_toEndOf="@+id/textView4"-->
+        <!--android:layout_toRightOf="@+id/textView4"-->
+        <!--android:background="@null"-->
+        <!--android:hint="@string/post_hin"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:textColor="@color/color_black"-->
+        <!--android:textSize="@dimen/base15dp" />-->
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

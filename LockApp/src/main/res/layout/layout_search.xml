@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base48dp"
+    android:background="@drawable/icon_ly_bg">
+
+    <ImageView
+        android:id="@+id/iv_search_return"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/base10dp"
+        android:src="@mipmap/ic_return" />
+
+    <AutoCompleteTextView
+        android:id="@+id/ev_title_input"
+        android:layout_width="@dimen/base260dp"
+        android:layout_height="@dimen/base30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/base14dp"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_weight="7"
+        android:background="@mipmap/icon_search_bg"
+        android:drawableLeft="@mipmap/ic_search"
+        android:drawablePadding="@dimen/base5dp"
+        android:gravity="left|center_vertical"
+        android:hint="@string/search_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:paddingLeft="@dimen/base10dp"
+        android:textColor="@color/text_color_black"
+        android:textColorHint="@color/text_color_hind"
+        android:textSize="@dimen/base14dp" />
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/base14dp"
+        android:src="@mipmap/ic_search"
+        android:textColor="@color/text_color_white"
+        android:textSize="@dimen/base15dp" />
+
+
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_search"/>
+
+    <TextView
+        android:padding="@dimen/base15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backage_color_gray"
+        android:drawableLeft="@mipmap/icon_history"
+        android:drawablePadding="@dimen/base5dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/base14dp"
+        android:text="@string/history"
+        android:textSize="@dimen/base16dp"
+        />
+
+    <com.hzwc.intelligent.lock.mvpframework.view.bezier.FlowLayout
+        android:layout_marginTop="@dimen/base15dp"
+        android:id="@+id/fl_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base14dp"
+        android:layout_marginRight="@dimen/base14dp"
+        app:itemColor="@color/text_color_gray"
+        app:itemSize="@dimen/base14dp" />
+
+</LinearLayout>

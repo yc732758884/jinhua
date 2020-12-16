@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/one"
+        android:icon="@mipmap/ic_data_blue"
+        android:title="@string/title_station" />
+    <item
+        android:id="@+id/two"
+        android:icon="@mipmap/ic_open_lock"
+        android:title="@string/title_data" />
+
+    <item
+        android:id="@+id/three"
+        android:icon="@mipmap/ic_warn_blue"
+        android:title="@string/title_warn" />
+    <item
+        android:id="@+id/fore"
+        android:icon="@mipmap/ic_install_blue"
+        android:title="@string/title_install"
+        />
+    <!--<item-->
+        <!--android:id="@+id/five"-->
+        <!--android:icon="@mipmap/ic_mine_blue"-->
+        <!--android:title="@string/title_mine" />-->
+
+
+</menu>

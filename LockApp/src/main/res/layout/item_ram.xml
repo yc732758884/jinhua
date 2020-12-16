@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_record_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:paddingLeft="4dp"
+        android:src="@mipmap/ic_install_left" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/iv_record_lock"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_ram_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lock_ram"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray_b"
+            android:textSize="@dimen/base15dp" />
+
+        <TextView
+            android:id="@+id/tv_ram_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_ram_location"
+            android:layout_marginTop="@dimen/base5dp"
+            android:textColor="@color/text_color_hind"
+            android:singleLine="true"
+            android:textSize="@dimen/base12dp" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

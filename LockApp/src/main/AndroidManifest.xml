@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hzwc.intelligent.lock">
+
+    <permission
+        android:name="com.hzwc.intelligent.lock.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <!-- 联网权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 二維碼權限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="com.hzwc.intelligent.lock.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <!-- 3.2.0版本增加 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 3.2.0版本增加 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
+
+    <application
+        android:name=".LyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:resizeableActivity="true"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Design.Light.NoActionBar">
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".model.activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".model.activity.LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".model.activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".model.activity.SetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".model.activity.MessageActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":mult">
+
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+
+
+        </service>
+
+        <provider
+            android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="com.hzwc.intelligent.lock.cd.DataProvider"
+            android:exported="true" />
+        <!-- since 3.0.9 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="com.hzwc.intelligent.lock.cd.DataProvider"
+            android:exported="true" />
+
+        <!-- since 3.1.0 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DownloadProvider"
+            android:authorities="com.hzwc.intelligent.lock.cd"
+            android:exported="true" />
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+
+                <category android:name="com.hzwc.intelligent.lock" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.hzwc.intelligent.lock" />
+            </intent-filter>
+        </activity>
+        <!-- Required SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+        <!-- Required SDK核心功能 -->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+        <!-- Required since 3.0.7 -->
+        <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->
+        <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
+        <receiver
+            android:name=".model.receiver.MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.hzwc.intelligent.lock" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <!-- Required. AppKey copied from Portal -->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="4bbc84c4e2d9f349b9e83b1d51f95246" />
+        <!--4bbc84c4e2d9f349b9e83b1d51f95246    cd-->
+        <!--37b5df40aa8179ce5a867d57f4fa17a9   kx-->
+
+        <!-- 设置key 高德 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="4bbc84c4e2d9f349b9e83b1d51f95246" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity
+            android:name=".model.activity.MineActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.RingMainUnitActivity"
+            android:configChanges="orientation|keyboardHidden" >
+
+            <intent-filter >
+                <action android:name="android.media.action.IMAGE_CAPTURE"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name=".model.activity.ChoseLocationActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.OpenLockActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.RecordActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.NewRUNActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.LockYetActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.InstallInfoActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.InstallLockInfoActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.RamYetActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.InstallLockActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".model.activity.ReviseRamActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.SearchStationActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.ElseWarningActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.WarnActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.AddOtherWarnActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.RecordDetailsActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.RegisterNextActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".model.activity.ChangePwdActivity"
+            android:configChanges="orientation|keyboardHidden" />
+    </application>
+
+</manifest>

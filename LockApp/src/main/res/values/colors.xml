@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="text_color_black">#333333</color>
+    <color name="text_color_gray">#999999</color>
+    <color name="text_color_hind">#BBBBBB</color>
+    <color name="color_black">#000000</color>
+    <color name="text_color_theme_blue">#399bff</color>
+    <color name="fontBg">#F0F0F0</color>
+    <color name="scan_corner_color">#0effc2</color>
+    <color name="text_color_green">#1DCD84</color>
+    <color name="power_blue">#3aa6ff</color>
+    <color name="bg_theme">#41ABFC</color>
+    <color name="text_color_gray_b">#666</color>
+    <color name="bg_lucency">#4D000000</color>
+    <color name="bg_lucency_">#26000000</color>
+    <color name="text_color_warn">#fe9908</color>
+    <color name="color_E5E5E5">#E5E5E5</color>
+    <color name="backage_color_gray">#F6F6F6</color>
+    <color name="fontThree">#333333</color>
+    <color name="fontOne">#999999</color>
+    <color name="fontFour">#4287ff</color>
+
+    <color name="lineColor">#e5e5e5</color>
+    <color name="text_color_blue">#48B7FF</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="background">#F5F5F5</color>
+    <color name="text_red">#FF2635</color>
+    <color name="state">#FF9D15</color>
+    <color name="text_color_orange">#FD9941</color>
+    <color name="eq_bg_detail">#FEF2E3</color>
+
+
+    <color name="ly_background_color">#efeff4</color>
+    <color name="gray_bg">#f5f5f5</color>
+    <color name="gray_bg_new">#EFEFF4</color>
+</resources>

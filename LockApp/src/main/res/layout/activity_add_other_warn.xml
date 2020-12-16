@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg_new"
+    android:orientation="vertical"
+    tools:context="com.hzwc.intelligent.lock.model.activity.AddOtherWarnActivity">
+
+    <include
+        android:id="@+id/lh"
+        layout="@layout/layout_head" />
+
+
+    <FrameLayout
+        android:id="@+id/rl_map"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base250dp"
+        android:layout_below="@+id/lh"
+
+        >
+
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/mapview_warn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base250dp">
+
+        </com.amap.api.maps.MapView>
+
+        <ImageView
+            android:id="@+id/center_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="8dp"
+            android:src="@mipmap/ic_position" />
+    </FrameLayout>
+
+
+    <ImageView style="@style/LineStyle" />
+
+    <ImageView
+        style="@style/LineStyle"
+        android:layout_marginTop="@dimen/base15dp" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/install_text"
+            android:text="@string/warning_type" />
+
+
+        <com.hzwc.intelligent.lock.model.spinner.NiceSpinner
+            android:id="@+id/ns_warning_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_marginLeft="@dimen/base20dp"
+            android:layout_toEndOf="@+id/textView1"
+            android:layout_toRightOf="@+id/textView1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/company_hint"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/base15dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/install_text"
+            android:text="@string/cabinet_name" />
+
+
+        <TextView
+            android:id="@+id/tv_cabinet_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_marginLeft="@dimen/base40dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请选择设施"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/base15dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/install_text"
+            android:text="@string/warning_lock_mac" />
+
+
+        <com.hzwc.intelligent.lock.model.spinner.NiceSpinner
+            android:id="@+id/ns_mac"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_marginLeft="@dimen/base20dp"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_toRightOf="@+id/textView3"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请选择锁的MAC"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/base15dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+        android:id="@+id/rl_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base15dp"
+        android:visibility="gone"
+        android:background="@color/white">
+
+        <RelativeLayout
+
+            android:id="@+id/rl_info"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base44dp"
+            android:layout_marginTop="@dimen/base15dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/install_text"
+                android:layout_height="match_parent"
+                android:text="@string/warning_summarize" />
+
+
+            <EditText
+                android:id="@+id/et_info_ten"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBaseline="@+id/textView4"
+                android:layout_alignBottom="@+id/textView4"
+                android:layout_marginLeft="@dimen/base40dp"
+                android:layout_toEndOf="@+id/textView4"
+                android:layout_toRightOf="@+id/textView4"
+
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/company_hint"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/base15dp" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_line"
+            style="@style/LineStyle"
+            android:layout_below="@+id/rl_info" />
+
+        <EditText
+            android:id="@+id/et_info_wrong"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base150dp"
+            android:layout_below="@+id/iv_line"
+            android:layout_marginLeft="@dimen/base10dp"
+            android:background="@null"
+            android:hint="@string/particulars_hint"
+            android:padding="@dimen/base10dp" />
+    </RelativeLayout>
+
+
+    <!---->
+    <!--<View-->
+    <!--android:id="@+id/v1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base1dp"-->
+    <!--android:layout_below="@+id/v"-->
+    <!--android:background="@color/bg_lucency_" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_type"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v"-->
+    <!--android:padding="@dimen/base10dp"-->
+    <!--android:text="@string/warning_type"-->
+    <!--android:textColor="@color/color_black" />-->
+
+    <!--<EditText-->
+    <!--android:focusable="false"-->
+    <!--android:id="@+id/et_warning_type"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignStart="@+id/et_cabinet_name"-->
+    <!--android:layout_below="@+id/v"-->
+    <!--android:background="@null"-->
+    <!--android:hint="@string/type_hint"-->
+    <!--android:padding="@dimen/base10dp" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_warning_type_down"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_below="@+id/v"-->
+    <!--android:padding="@dimen/base10dp"-->
+    <!--android:src="@mipmap/ic_down_gray" />-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rl_warning_type_down"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_below="@+id/iv_warning_type_down"-->
+    <!--android:visibility="gone" />-->
+
+
+    <!--<View-->
+    <!--android:id="@+id/v2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base1dp"-->
+    <!--android:layout_below="@+id/tv_type"-->
+    <!--android:background="@color/bg_lucency_" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_name"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v2"-->
+    <!--android:padding="@dimen/base10dp"-->
+    <!--android:text="@string/cabinet_name"-->
+    <!--android:textColor="@color/color_black" />-->
+
+    <!--<EditText-->
+    <!--android:focusable="false"-->
+    <!--android:id="@+id/et_cabinet_name"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v2"-->
+    <!--android:layout_marginLeft="@dimen/base10dp"-->
+    <!--android:layout_toRightOf="@+id/tv_name"-->
+    <!--android:background="@null"-->
+    <!--android:hint="@string/cabinet_name_hint"-->
+    <!--android:padding="@dimen/base10dp" />-->
+
+    <!--<View-->
+    <!--android:id="@+id/v3"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base1dp"-->
+    <!--android:layout_below="@+id/tv_name"-->
+    <!--android:background="@color/bg_lucency_" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_mac"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v3"-->
+    <!--android:padding="@dimen/base10dp"-->
+    <!--android:text="@string/warning_lock_mac"-->
+    <!--android:textColor="@color/color_black" />-->
+
+    <!--<EditText-->
+    <!--android:focusable="false"-->
+    <!--android:id="@+id/et_warning_lock_mac"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v3"-->
+    <!--android:layout_marginLeft="@dimen/base10dp"-->
+    <!--android:layout_toRightOf="@+id/tv_mac"-->
+    <!--android:background="@null"-->
+    <!--android:hint="@string/warning_lock_mac_name_hint"-->
+    <!--android:padding="@dimen/base10dp" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_warning_lock_mac_down"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_below="@+id/v3"-->
+    <!--android:layout_margin="@dimen/base10dp"-->
+    <!--android:background="@mipmap/ic_down_gray" />-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rl_warning_lock_mac_down"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_below="@+id/iv_warning_lock_mac_down"-->
+    <!--android:visibility="gone" />-->
+
+    <!--<View-->
+    <!--android:id="@+id/v4"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base1dp"-->
+    <!--android:layout_below="@+id/tv_mac"-->
+    <!--android:background="@color/bg_lucency_" />-->
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rl_summarize_particulars"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v4">-->
+
+    <!--<View-->
+    <!--android:id="@+id/v5"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base25dp"-->
+    <!--android:background="@color/color_E5E5E5" />-->
+
+    <!--<View-->
+    <!--android:id="@+id/v6"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base1dp"-->
+    <!--android:layout_below="@+id/v5"-->
+    <!--android:background="@color/bg_lucency_" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_summarize"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_marginTop="275dp"-->
+    <!--android:padding="@dimen/base10dp"-->
+    <!--android:text="@string/warning_summarize"-->
+    <!--android:textColor="@color/color_black" />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/et_warning_summarize"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v6"-->
+    <!--android:layout_marginLeft="@dimen/base10dp"-->
+    <!--android:layout_toRightOf="@+id/tv_summarize"-->
+    <!--android:background="@null"-->
+    <!--android:hint="@string/warning_summarize_hint"-->
+    <!--android:padding="@dimen/base10dp" />-->
+
+    <!--<View-->
+    <!--android:id="@+id/v7"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base1dp"-->
+    <!--android:layout_below="@+id/tv_summarize"-->
+    <!--android:background="@color/bg_lucency_" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_particulars"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="@dimen/base150dp"-->
+    <!--android:layout_below="@+id/v7"-->
+    <!--android:padding="@dimen/base10dp"-->
+    <!--android:text="@string/warning_particulars"-->
+    <!--android:textColor="@color/color_black" />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/ev_warning_particulars"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/v7"-->
+    <!--android:layout_marginLeft="@dimen/base10dp"-->
+    <!--android:layout_toRightOf="@+id/tv_particulars"-->
+    <!--android:background="@null"-->
+    <!--android:hint="@string/particulars_hint"-->
+    <!--android:padding="@dimen/base10dp" />-->
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/base1dp"-->
+    <!--android:layout_alignBottom="@+id/tv_particulars"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:background="@color/bg_lucency_" />-->
+    <!--</RelativeLayout>-->
+
+
+</LinearLayout>

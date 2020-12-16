@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base48dp"
+    android:background="@color/text_color_theme_blue">
+
+
+    <ImageView
+        android:id="@+id/iv_title_return"
+        android:layout_width="@dimen/base50dp"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        android:src="@mipmap/ic_return"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/iv_title_scan"
+        android:layout_width="@dimen/base30dp"
+        android:layout_height="@dimen/base50dp"
+        android:layout_margin="@dimen/base10dp"
+        android:background="@drawable/button_select"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/tv_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:text="标题"
+        android:textColor="@color/text_color_white"
+        android:textSize="@dimen/base18dp" />
+
+
+    <FrameLayout
+        android:layout_width="@dimen/base60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="@dimen/base60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="@dimen/base12dp"
+            android:src="@mipmap/ic_search"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="@dimen/base60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/tv_search"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/base15dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_search_over"
+            android:layout_width="@dimen/base60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/tv_over"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/base15dp"
+            android:visibility="gone" />
+
+    </FrameLayout>
+</RelativeLayout>

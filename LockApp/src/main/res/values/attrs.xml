@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="chartView">
+        <!--<attr name="xylinecolor" />-->
+        <!--<attr name="xylinewidth" />-->
+        <!--<attr name="xytextcolor" />-->
+        <!--<attr name="xytextsize" />-->
+        <!--<attr name="linecolor" />-->
+        <!--<attr name="interval" />-->
+        <!--<attr name="bgcolor" />-->
+        <!--<attr name="isScroll" />-->
+
+        <!-- xy坐标轴颜色 -->
+        <attr name="xylinecolor" format="color" />
+        <!-- xy坐标轴宽度 -->
+        <attr name="xylinewidth" format="dimension" />
+        <!-- xy坐标轴文字颜色 -->
+        <attr name="xytextcolor" format="color" />
+        <!-- xy坐标轴文字大小 -->
+        <attr name="xytextsize" format="dimension" />
+        <!-- 折线图中折线的颜色 -->
+        <attr name="linecolor" format="color" />
+        <!-- x轴各个坐标点水平间距 -->
+        <attr name="interval" format="dimension" />
+        <!-- 背景颜色 -->
+        <attr name="bgcolor" format="color" />
+        <!--是否在ACTION_UP时，根据速度进行自滑动，建议关闭，过于占用GPU-->
+        <attr name="isScroll" format="boolean" />
+
+    </declare-styleable>
+
+
+    <attr name="horizontalSpacing" format="dimension" />
+    <attr name="verticalSpacing" format="dimension" />
+    <attr name="itemSize" format="dimension" />
+    <attr name="itemColor" format="color" />
+    <attr name="backgroundResource" format="reference" />
+    <attr name="textPaddingH" format="dimension" />
+    <attr name="textPaddingV" format="dimension" />
+
+    <declare-styleable name="FlowLayoutAttrs">
+        <attr name="horizontalSpacing" />
+        <attr name="verticalSpacing" />
+        <attr name="itemSize" />
+        <attr name="itemColor" />
+        <attr name="backgroundResource" />
+        <attr name="textPaddingH" />
+        <attr name="textPaddingV" />
+    </declare-styleable>
+
+    <declare-styleable name="SeatTableView">
+        <attr name="seat_checked" format="reference" />
+        <attr name="seat_sold" format="reference" />
+        <attr name="seat_available" format="reference" />
+        <attr name="overview_checked" format="color" />
+        <attr name="overview_sold" format="color" />
+        <attr name="txt_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPaddingTopBottom" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <!--该属性表示里面的TAB是否均分整个PagerSlidingTabStrip控件的宽,true是,false不均分,从左到右排列,默认false-->
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+        <attr name="pstsTextSelectedColor" format="color"/>
+        <!--缩放的最大值,0.3表示放大后最大是原来的0.3倍,默认未0.3-->
+        <attr name="pstsScaleZoomMax" format="float"/>
+        <attr name="pstsSmoothScrollWhenClickTab" format="boolean"/>
+        <!-- 宽为match_parent ，指示器的宽需手动计算的问题,这个属性设置为true,则指示器的位置和字体的宽一样-->
+        <!--    <attr name="pstsIndicatorWrap" format="boolean" />-->
+    </declare-styleable>
+
+    <declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+        <attr name="arrowDrawable" format="reference|color"/>
+        <attr name="dropDownListPaddingBottom" format="dimension"/>
+        <attr name="backgroundSelector" format="integer"/>
+        <attr name="textTint" format="color"/>
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,243 @@
+<resources>
+    <string name="app_name">智慧锁传动</string>
+    <string name="title_install">安装</string>
+    <string name="title_station">定位信息</string>
+    <string name="title_data">开锁</string>
+    <string name="title_warn">告警</string>
+    <string name="title_mine">我的</string>
+
+
+    <string name="title_new_ring">新建设施</string>
+    <string name="title_set">设置</string>
+    <string name="title_chose_location">选择地址</string>
+    <string name="title_location_info">定位信息</string>
+    <string name="title_install_yet">已安装智慧锁</string>
+    <string name="title_install_lock">安装智慧锁</string>
+    <string name="title_install_ram">已安装设施</string>
+    <string name="title_install_ram_info">新建设施详情</string>
+    <string name="title_install_lock_info">新建智慧锁详情</string>
+
+    <string name="tv_over">完成</string>
+    <string name="tv_search">搜索</string>
+    <string name="tv_cancel">取消</string>
+    <string name="tv_station">电站</string>
+
+    <string name="tv_install_net">新建设施</string>
+    <string name="tv_install_lock">安装智慧锁</string>
+    <string name="tv_install_new_net">查看已新建设施</string>
+    <string name="tv_install_lock_yet">查看已安装智慧锁</string>
+
+
+    <string name="tv_ring_main_name">设施名称</string>
+    <string name="please_input_ring_name">请输入设施名称</string>
+    <string name="please_choice_state">请选择设施类型</string>
+    <string name="tv_ring_main_location">地址</string>
+    <string name="please_chose_ring_location">请选择设施地址</string>
+
+
+    <string name="all_area">全部区域</string>
+    <string name="all_string_formation">全部子阵</string>
+    <string name="select_string_formation">全部组串</string>
+
+
+    <string name="tv_update">提交</string>
+
+
+    <string name="please_input_username">请输入账号</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="button_login">登录</string>
+    <string name="login_info_left">登录即代表阅读并同意</string>
+    <string name="login_info_right">《服务条款》</string>
+    <string name="login_forget_password">忘记密码？</string>
+    <string name="login_message_username">账号必须是手机号并且不能为空</string>
+    <string name="et_please_input_password">请输入密码</string>
+    <string name="et_input_name">请输入用户名字</string>
+    <string name="et_input_tel">请输入用户电话</string>
+    <string name="et_new_pwd">新密码不能为空</string>
+    <string name="et_new_pwd_sure">确认密码不能为空</string>
+    <string name="et_new_pwd_equal">两次内容不一致</string>
+
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="reset">重置</string>
+    <string name="data_day">日数据</string>
+    <string name="data_month">月数据</string>
+    <string name="data_year">年数据</string>
+    <string name="chance_data">选择日期</string>
+    <string name="data_month_electricity">月发电量</string>
+    <string name="data_month_energy">月发电流</string>
+    <string name="data_month_voltage">月发电压</string>
+    <string name="data_year_electricity">年发电量</string>
+    <string name="data_year_energy">年发电流</string>
+    <string name="data_year_voltage">年发电压</string>
+
+
+    <string name="install_module">已安装采集器</string>
+    <string name="area">全部区域</string>
+    <string name="subarray">全部子阵</string>
+    <string name="formation">全部组串</string>
+    <string name="number">组件编号</string>
+    <string name="collector">采集器编号</string>
+    <string name="electricity">电流</string>
+    <string name="voltage">电压</string>
+    <string name="module_electricity">采集器电流</string>
+    <string name="state">状态</string>
+    <string name="normal">正常</string>
+    <string name="abnormal">异常</string>
+    <string name="unit_A">%1$sA</string>
+    <string name="unit_V">%1$sV</string>
+
+    <string name="data_weather">%1$s   %2$sC°  PM2.5: %3$sμm/m³</string>
+
+    <string name="gateway_input_old">原网关编号不能为空</string>
+    <string name="gateway_input_new">新网关编号不能为空</string>
+    <string name="gateway_input_nub">网关编号不能为空</string>
+    <string name="gateway_input_location">网关位置不能为空</string>
+    <string name="collector_input_old">原采集器编号不能为空</string>
+    <string name="collector_input_new">新采集器编号不能为空</string>
+    <string name="group_input_old">原组件编号不能为空</string>
+    <string name="group_input_new">新组件编号不能为空</string>
+    <string name="collect_input_collect">采集器编号不能为空</string>
+    <string name="collect_input_net">所属网关不能为空</string>
+    <string name="collect_input_group">组件编号不能为空</string>
+
+    <string name="group_info_collect_nub">采集器编号</string>
+    <string name="group_info_nub">组件编号</string>
+    <string name="group_info_i">组件电流</string>
+    <string name="group_info_v">组件电压</string>
+    <string name="group_info_bad_time">故障时间</string>
+    <string name="group_info_state">组件状态</string>
+    <string name="group_info_station">所属电站</string>
+    <string name="group_info_group">所属组串</string>
+    <string name="group_info_see">点击查看组件</string>
+    <string name="group_info_bad">运行故障</string>
+    <string name="warning_else">其他告警</string>
+    <string name="warning_location">位置告警</string>
+    <string name="warning_time">欠压告警</string>
+    <string name="warning_type">异常类型</string>
+    <string name="cabinet_name">机柜名称</string>
+    <string name="warning_lock_mac">智慧锁MAC</string>
+    <string name="energy_lock_mac">智慧锁电量</string>
+    <string name="warning_summarize">故障概述</string>
+    <string name="warning_particulars">故障详情</string>
+    <string name="look_else_warning">查看其它异常</string>
+    <string name="open_time">开锁时间</string>
+    <string name="open_lock_name">开锁人姓名</string>
+    <string name="open_lock_phone">开锁人电话</string>
+    <string name="open_lock_unit">开锁人单位</string>
+    <string name="open_lock_section">开锁人部门</string>
+    <string name="open_lock_record_details">开锁记录详情</string>
+    <string name="device_founded">扫描中.....</string>
+
+
+    <string name="unlocking">开锁</string>
+    <string name="lock_mac">智慧锁MAC: %1$s</string>
+    <string name="lock_ram">设施名称: %1$s</string>
+    <string name="lock_cabinet">所属设施: %1$s</string>
+    <string name="lock_cord">智慧锁编码: %1$s</string>
+    <string name="open_lock_time">开锁时间: %1$s</string>
+    <string name="electri_name">电柜名称: %1$s</string>
+    <string name="electric_quantity">电量: %1$s%2$s</string>
+    <string name="warn_quantity">告警电量: %1$d</string>
+    <string name="summarize">故障概述: %1$s</string>
+    <string name="username">账号: %1$s</string>
+    <string name="no_data">无数据</string>
+    <string name="ununited">未连接</string>
+    <string name="connected">已连接</string>
+    <string name="record">记录</string>
+    <string name="open_lock_record">%1$s开锁记录</string>
+    <string name="no_jurisdiction">无权限</string>
+    <string name="jurisdiction_abnormal">权限异常</string>
+    <string name="jurisdiction_audit">权限审核中</string>
+    <string name="apply_jurisdiction">申请权限</string>
+    <string name="past">权限已过期</string>
+    <string name="resubmit">重新提交</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="hint">提示</string>
+    <string name="hint_02">请触摸智慧锁, 激活后连接</string>
+    <string name="hint_03">暂无开锁权限, 是否申请开锁?</string>
+    <string name="hint_04">权限过期,是否重新提交</string>
+    <string name="hint_05">权限审核中</string>
+    <string name="hint_06">请将数据填写完整</string>
+    <string name="hint_07">申请权限成功, 请等待审核</string>
+    <string name="hint_08">权限异常</string>
+    <string name="hint_09">正在获取锁token</string>
+
+    <string name="not_data">暂无数据</string>
+    <string name="electri_box_message">电柜信息</string>
+    <string name="install">安装</string>
+    <string name="new_rmu">新建设施</string>
+    <string name="install_lock">安装智慧锁</string>
+    <string name="look_new_rmu">查看已新建设施</string>
+    <string name="look_install_lock">查看已安装智慧锁</string>
+    <string name="history">历史记录</string>
+    <string name="search_hint">请输入设施名称</string>
+    <string name="type_hint">请选择异常类型</string>
+    <string name="cabinet_name_hint">请选择机柜名称</string>
+    <string name="warning_lock_mac_name_hint">请选择智慧锁名称</string>
+    <string name="warning_summarize_hint">请输入十字内故障描述</string>
+    <string name="particulars_hint">请输入故障内容</string>
+    <string name="add_warning">添加异常</string>
+    <string name="add_succeed">提交成功</string>
+
+
+    <!--忘记密码-->
+
+    <string name="tel_check">手机验证</string>
+    <string name="forget_tel">手机号</string>
+    <string name="forget_please_tel">请输入手机号</string>
+    <string name="forget_code">验证码</string>
+    <string name="forget_please_code">请输入验证码</string>
+    <string name="forget_get_code">获取验证码</string>
+    <string name="forget_get_code_time">%1$ds后再获取</string>
+    <string name="forget_next">下一步</string>
+
+    <!--注册-->
+    <string name="change_new_psw">新密码</string>
+    <string name="change_new_psw_again">再输一遍</string>
+    <string name="change_put_new_pwd">请输入8-16位数字字母组合</string>
+    <string name="et_please_input_yourself_username">请输入本人手机号注册</string>
+    <string name="et_please_input_code">请输入验证码</string>
+    <string name="et_confirm_password">确认密码</string>
+    <string name="et_confirm_empty">新密码不能为空，并且不小于6位</string>
+    <string name="et_confirm_sure_empty">确认密码不能为空，并且不小于6位</string>
+    <string name="et_cold_pwd_empty">旧密码不能为空</string>
+    <string name="et_more_than_8">6位以上数字和字母组合</string>
+    <string name="entered_passwords_differ">两次输入的密码不一致</string>
+    <string name="title_register">注册</string>
+    <string name="name">名字</string>
+    <string name="name_hint">请输入姓名</string>
+    <string name="company">单位</string>
+    <string name="company_hint">请输入单位名称</string>
+    <string name="department">部门</string>
+    <string name="department_hin">请输入部门名称</string>
+    <string name="post">岗位</string>
+    <string name="post_hin">请输入岗位名称</string>
+
+    <string name="install_rim_name">下一步</string>
+    <string name="install_rim_location">下一步</string>
+
+    <string name="tv_ram_name">设施名称: %1$s</string>
+    <string name="tv_ram_location">地址: %1$s</string>
+    <string name="tv_install_location">位置</string>
+    <string name="tv_install_name">设施名称</string>
+    <string name="tv_install_mac">智慧锁MAC</string>
+    <string name="tv_install_location_please">请输入或选择安装位置</string>
+    <string name="tv_install_name_please">请输入设施名称</string>
+    <string name="tv_install_mac_please">连接蓝牙自动获取编号</string>
+
+
+    <string name="tv_info_ram_name">设施名称</string>
+    <string name="tv_info_ram_location">地址</string>
+    <string name="tv_info_ram_time">安装时间</string>
+
+    <string name="tv_info_lock_name">设施名称</string>
+    <string name="tv_info_lock_location">位置</string>
+    <string name="tv_info_lock_time">安装时间</string>
+    <string name="tv_info_lock_mac">智慧锁MAC</string>
+
+    <string name="tv_install_tip">请打开手机蓝牙，触摸智慧锁底部按钮，激活后刷新获取MAC。</string>
+    <string name="tv_install_open_lock">请触摸智慧锁底部按钮，激活后刷新获取MAC。</string>
+
+</resources>

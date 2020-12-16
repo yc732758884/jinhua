@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><!--加载提示图-->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+       />
+
+
+    <!--loading提示图-->
+    <TextView
+        android:id="@+id/loading_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="-25dp"
+
+        android:gravity="center"
+        android:text="请等待"
+        android:textColor="@color/text_color_gray" />
+
+</FrameLayout>

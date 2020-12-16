@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_ring_location"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base44dp"
+
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_height="match_parent"
+        style="@style/install_text"
+        android:text="@string/tv_install_mac" />
+
+    <EditText
+        android:id="@+id/et_install_mac"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_marginLeft="@dimen/base20dp"
+        android:layout_toEndOf="@+id/textView4"
+        android:layout_toRightOf="@+id/textView4"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="@string/tv_install_mac_please"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/base15dp" />
+
+
+
+    <ImageView
+        android:id="@+id/ima_install_refresh"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/refresh_install"
+        android:layout_marginEnd="@dimen/base12dp"
+        android:layout_width="@dimen/base16dp"
+        android:layout_height="@dimen/base16dp" />
+
+    <ImageView
+        android:visibility="invisible"
+
+        android:id="@+id/iv_install_zxing"
+        style="@style/install_image"
+        android:layout_height="@dimen/base44dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:src="@mipmap/ic_zxing" />
+</RelativeLayout>

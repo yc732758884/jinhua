@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ly_background_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head" />
+
+    <ImageView
+        style="@style/LineStyle"
+        android:layout_marginTop="@dimen/base5dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_install_first"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+
+        android:background="@color/white">
+
+        <TextView
+            style="@style/install_text_first"
+            android:text="@string/tv_install_net" />
+
+        <ImageView style="@style/install_image" />
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+        android:id="@+id/rl_install_second"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+        android:background="@color/white">
+
+        <TextView
+            style="@style/install_text_first"
+            android:text="@string/tv_install_lock" />
+
+        <ImageView style="@style/install_image" />
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+        android:id="@+id/rl_install_third"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+        android:background="@color/white">
+
+        <TextView
+            style="@style/install_text_first"
+            android:text="@string/tv_install_new_net" />
+
+        <ImageView style="@style/install_image" />
+    </RelativeLayout>
+
+    <ImageView style="@style/LineStyle" />
+
+    <RelativeLayout
+        android:id="@+id/rl_install_fourth"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base44dp"
+        android:background="@color/white">
+
+        <TextView
+            style="@style/install_text_first"
+            android:text="@string/tv_install_lock_yet" />
+
+        <ImageView style="@style/install_image" />
+    </RelativeLayout>
+
+
+    <ImageView style="@style/LineStyle" />
+
+
+</LinearLayout>
+

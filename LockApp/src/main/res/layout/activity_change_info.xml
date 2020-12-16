@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ly_background_color"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/layout_head" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base10dp"
+        android:background="@color/text_color_white">
+
+
+        <EditText
+            android:id="@+id/et_input_tel"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base44dp"
+            android:layout_marginLeft="@dimen/base14dp"
+            android:background="@null"
+            android:hint="@string/et_input_tel"
+            android:textSize="@dimen/base15dp" />
+
+        <EditText
+            android:id="@+id/et_input_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base44dp"
+            android:layout_marginLeft="@dimen/base14dp"
+            android:background="@null"
+            android:hint="@string/et_input_name"
+            android:textSize="@dimen/base15dp" />
+    </FrameLayout>
+
+</LinearLayout>

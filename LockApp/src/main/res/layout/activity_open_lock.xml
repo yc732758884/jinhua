@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/iv_bk1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base300dp"
+        android:background="@mipmap/blue_backage" />
+
+    <ImageView
+        android:id="@+id/iv_bk2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base50dp"
+        android:layout_below="@+id/iv_bk1"
+        android:background="@color/text_color_hind" />
+
+    <ImageView
+        android:id="@+id/iv_bk3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/iv_bk2"
+        android:background="@color/text_color_white" />
+
+    <ImageView
+        android:id="@+id/iv_return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base10dp"
+        android:layout_marginLeft="@dimen/base5dp"
+        android:src="@mipmap/ic_return" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/base10dp"
+        android:text="@string/electri_box_message"
+        android:textColor="@color/text_color_white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/base10dp"
+        android:text="@string/record"
+        android:textColor="@color/text_color_white"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/tv_lock_not_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base50dp"
+        android:background="@mipmap/yidonglock" />
+
+    <TextView
+        android:id="@+id/tv_circular_bead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_lock_not_open"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base20dp"
+        android:background="@mipmap/circular_bead"
+        android:gravity="center"
+        android:text="@string/ununited"
+        android:textColor="@color/text_color_theme_blue"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_lock_mac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_circular_bead"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base8dp"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_circular_bead"
+        android:layout_marginLeft="@dimen/base15dp"
+        android:layout_marginRight="@dimen/base15dp"
+        android:layout_marginTop="@dimen/base60dp"
+        android:background="@mipmap/circular_bead_big">
+
+        <TextView
+            android:id="@+id/tv_quantity_at_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@mipmap/electric_quantity_at_large"
+            android:gravity="center"
+            android:text="@string/electric_quantity" />
+
+        <View
+            android:layout_width="@dimen/base1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/base5dp"
+            android:layout_marginTop="@dimen/base5dp"
+            android:background="@color/text_color_gray_b" />
+
+        <TextView
+            android:id="@+id/tv_box_at_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@mipmap/electric_box_at_large"
+            android:gravity="center"
+            android:text="@string/electri_name" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_open_close"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/iv_bk2"
+       android:gravity="center"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_unlocking_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_marginBottom="@dimen/base10dp"
+            android:layout_marginTop="@dimen/base30dp"
+            android:background="@mipmap/unlocking_button"
+            android:gravity="center"
+            android:text="@string/unlocking"
+            android:textColor="@color/text_color_white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_bk2"
+            android:layout_marginStart="@dimen/album_dp_50"
+            android:layout_toEndOf="@id/tv_unlocking_button"
+            android:layout_marginBottom="@dimen/base10dp"
+            android:layout_marginTop="@dimen/base30dp"
+            android:background="@mipmap/unlocking_button"
+            android:gravity="center"
+            android:text="关锁"
+            android:textColor="@color/text_color_white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_open_close"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@mipmap/attention"
+        android:drawablePadding="@dimen/base5dp"
+        android:text="@string/hint_02"
+        android:textColor="@color/text_color_gray" />
+
+
+</RelativeLayout>
