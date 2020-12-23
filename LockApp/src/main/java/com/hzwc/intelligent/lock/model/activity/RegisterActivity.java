@@ -25,10 +25,13 @@ import com.hzwc.intelligent.lock.model.bean.BaseBean;
 import com.hzwc.intelligent.lock.model.bean.RegisterBean;
 import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.PhoneUtils;
+import com.hzwc.intelligent.lock.model.utils.ToastUtil;
 import com.hzwc.intelligent.lock.model.view.persenter.RegisterPresenter;
 import com.hzwc.intelligent.lock.model.view.view.RegisterView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
 import com.hzwc.intelligent.lock.mvpframework.view.AbstractMvpBaseActivity;
+
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -131,18 +134,21 @@ public class RegisterActivity extends AbstractMvpBaseActivity<RegisterView, Regi
                 finish();
                 break;
             case R.id.tv_search:
-                isEmpty();
 
-                if ((identifyCode + "").equals(etRegisterCode.getText().toString().trim())) {
-
-                    Intent intent = new Intent(this, RegisterNextActivity.class);
-                    intent.putExtra("mobile", etRegisterUsername.getText().toString());
-                    intent.putExtra("password", etRegisterNewAgain.getText().toString());
-                    intent.putExtra("verifyCode", etRegisterCode.getText().toString());
-                    startActivity(intent);
+                if (isEmpty()){
+                    return;
                 }
 
-//                getMvpPresenter().verification("", etRegisterUsername.getText().toString(), etRegisterCode.getText().toString());
+
+                if (TextUtils.isEmpty(etRegisterCode.getText().toString())){
+                    Toast.makeText(RegisterActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int code=Integer.parseInt(etRegisterCode.getText().toString());
+
+
+               getMvpPresenter().verification("", etRegisterUsername.getText().toString(), code);
                 break;
             case R.id.iv_register_eye:
                 if (isVisible) {
@@ -210,6 +216,15 @@ public class RegisterActivity extends AbstractMvpBaseActivity<RegisterView, Regi
             return true;
         }
 
+        if ( !Pattern.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$", etRegisterNew.getText().toString().trim())){
+
+            Toast.makeText(RegisterActivity.this, "需要字母和数字", Toast.LENGTH_SHORT).show();
+            return true;
+
+        }
+
+
+
 
         return false;
     }
@@ -243,9 +258,20 @@ public class RegisterActivity extends AbstractMvpBaseActivity<RegisterView, Regi
         String jsonStr = gson.toJson(result);
         Log.e("awj", "verificationSuccess =" + jsonStr);
         if (result.getCode() == 0) {
-
+            if (!TextUtils.isEmpty(etRegisterCode.getText().toString().trim())) {
+                Intent intent = new Intent(this, RegisterNextActivity.class);
+                intent.putExtra("mobile", etRegisterUsername.getText().toString());
+                intent.putExtra("password", etRegisterNewAgain.getText().toString());
+                intent.putExtra("verifyCode", etRegisterCode.getText().toString());
+                startActivity(intent);
+            }
+        }else {
+             Toast.makeText(this, result.getMsg(), Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, result.getMsg(), Toast.LENGTH_SHORT).show();
+
+
+
+
 
     }
 

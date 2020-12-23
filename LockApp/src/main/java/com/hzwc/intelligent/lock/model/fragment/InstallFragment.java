@@ -68,11 +68,7 @@ public class InstallFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 
 
     @OnClick({R.id.rl_install_first, R.id.rl_install_second, R.id.rl_install_third, R.id.rl_install_fourth})

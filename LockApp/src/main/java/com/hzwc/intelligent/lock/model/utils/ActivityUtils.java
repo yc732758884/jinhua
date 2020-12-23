@@ -3,8 +3,11 @@ package com.hzwc.intelligent.lock.model.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.provider.Settings;
+import android.util.Log;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Activity工具类
@@ -13,6 +16,11 @@ import java.io.Serializable;
  * Anna
  */
 public class ActivityUtils {
+
+
+
+
+   static    List<Activity> activities=new ArrayList<>();
     /**
      * 启动一个Activity并关闭当前Activity
      *
@@ -146,5 +154,20 @@ public class ActivityUtils {
      */
     public static void startIntentActivity(Activity activity, Intent intent) {
         activity.startActivity(intent);
+    }
+
+    public   static   void  addActivity(Activity activity){
+        activities.add(activity);
+    }
+
+    public   static   void   removeActivity(Activity activity){
+        activities.remove(activity);
+    }
+
+    public  static   void  finnishAll(){
+        for (int i = 0; i < activities.size(); i++) {
+            Log.e("acnanem",activities.get(i).getLocalClassName());
+            activities.get(i).finish();
+        }
     }
 }

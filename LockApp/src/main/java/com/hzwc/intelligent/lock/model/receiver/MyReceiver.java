@@ -34,6 +34,8 @@ public class MyReceiver extends BroadcastReceiver {
     private NotificationManager notificationManager = null;
 
     private NotificationChannel notificationChannel = null;
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -41,6 +43,15 @@ public class MyReceiver extends BroadcastReceiver {
 
         Log.e("DDZTAG","收到广播了"+Build.VERSION.SDK_INT);
         Bundle bundle = intent.getExtras();
+
+
+
+
+
+        if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
+           String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
+            Log.e(TAG, "[MyJPushReceiver] 接收Registration Id : " + regId);
+        }
         //加一个推送管理类
         if(Build.VERSION.SDK_INT >=26){
             Log.e("DDZTAG","8.0处理了");
@@ -48,9 +59,6 @@ public class MyReceiver extends BroadcastReceiver {
             String id=context.getPackageName();
             CharSequence name=context.getString(R.string.app_name);
             int importance=NotificationManager.IMPORTANCE_HIGH;
-
-
-
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 //Android O上对Notification进行了修改，如果设置的targetSDKVersion>=26建议使用此种方式创建通知栏

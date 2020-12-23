@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hzwc.intelligent.lock">
 
-    <permission
-        android:name="com.hzwc.intelligent.lock.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
+
     <!-- 联网权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -14,6 +12,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.hzwc.intelligent.lock.cq.permission.JPUSH_MESSAGE" />
+
+    <permission
+        android:name="com.hzwc.intelligent.lock.cq.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -47,7 +50,6 @@
 
     <application
         android:name=".LyApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:resizeableActivity="true"
@@ -71,6 +73,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".model.activity.SettingActivity"
             android:screenOrientation="portrait" />
@@ -81,127 +84,53 @@
             android:name=".model.activity.MessageActivity"
             android:screenOrientation="portrait" />
 
-        <service
-            android:name="cn.jpush.android.service.PushService"
+
+
+
+        <service android:name="com.hzwc.intelligent.lock.model.receiver.MyJPushService"
             android:enabled="true"
             android:exported="false"
-            android:process=":mult">
-
+            android:process=":pushcore">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTER" />
-                <action android:name="cn.jpush.android.intent.REPORT" />
-                <action android:name="cn.jpush.android.intent.PushService" />
-                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+                <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
-
 
         </service>
 
-        <provider
-            android:name="cn.jpush.android.service.DataProvider"
-            android:authorities="com.hzwc.intelligent.lock.cd.DataProvider"
-            android:exported="true" />
-        <!-- since 3.0.9 Required SDK 核心功能 -->
-        <provider
-            android:name="cn.jpush.android.service.DataProvider"
-            android:authorities="com.hzwc.intelligent.lock.cd.DataProvider"
-            android:exported="true" />
-
-        <!-- since 3.1.0 Required SDK 核心功能 -->
-        <provider
-            android:name="cn.jpush.android.service.DownloadProvider"
-            android:authorities="com.hzwc.intelligent.lock.cd"
-            android:exported="true" />
-        <!-- Required SDK核心功能 -->
         <receiver
-            android:name="cn.jpush.android.service.PushReceiver"
-            android:enabled="true">
-            <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-
-                <category android:name="com.hzwc.intelligent.lock" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <!-- Optional -->
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        <!-- Required SDK核心功能 -->
-        <activity
-            android:name="cn.jpush.android.ui.PushActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:exported="false"
-            android:theme="@android:style/Theme.NoTitleBar">
-            <intent-filter>
-                <action android:name="cn.jpush.android.ui.PushActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.hzwc.intelligent.lock" />
-            </intent-filter>
-        </activity>
-        <!-- Required SDK核心功能 -->
-        <service
-            android:name="cn.jpush.android.service.DownloadService"
+            android:name="com.hzwc.intelligent.lock.model.receiver.MyJPushReceiver"
             android:enabled="true"
-            android:exported="false" />
-        <!-- Required SDK核心功能 -->
-        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
-        <!-- Required since 3.0.7 -->
-        <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->
-        <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
-        <receiver
-            android:name=".model.receiver.MyReceiver"
-            android:enabled="true"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
-                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.hzwc.intelligent.lock" />
-            </intent-filter>
-        </receiver>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.example.ytf.push" />
+            </intent-filter></receiver>
 
-        <meta-data
-            android:name="JPUSH_CHANNEL"
-            android:value="developer-default" />
-        <!-- Required. AppKey copied from Portal -->
-        <meta-data
-            android:name="JPUSH_APPKEY"
-            android:value="4bbc84c4e2d9f349b9e83b1d51f95246" />
+
+
         <!--4bbc84c4e2d9f349b9e83b1d51f95246    cd-->
         <!--37b5df40aa8179ce5a867d57f4fa17a9   kx-->
 
         <!-- 设置key 高德 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="4bbc84c4e2d9f349b9e83b1d51f95246" />
+            android:value="9ccf45cec42cdc9d3425abd919248037" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" />
 
         <activity
             android:name=".model.activity.MineActivity"
             android:configChanges="orientation|keyboardHidden" />
+
         <activity
             android:name=".model.activity.RingMainUnitActivity"
+
             android:configChanges="orientation|keyboardHidden" >
-
-            <intent-filter >
-                <action android:name="android.media.action.IMAGE_CAPTURE"/>
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
 
 
         </activity>
+
+
         <activity
             android:name=".model.activity.ChoseLocationActivity"
             android:configChanges="orientation|keyboardHidden" />

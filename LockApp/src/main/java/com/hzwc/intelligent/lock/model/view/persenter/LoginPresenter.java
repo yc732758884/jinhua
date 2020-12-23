@@ -28,11 +28,11 @@ public class LoginPresenter extends BaseMvpPresenter<LoginView> {
         this.mLoginRequest = new LoginRequest();
     }
 
-    public void clickRequest(final String mobile, String password,String id) {
+    public void clickRequest(final String mobile, String password,String id,String rid) {
         if (getMvpView() != null) {
             getMvpView().requestLoading();
         }
-        mLoginRequest.request(mobile, password,id, new Callback<LoginBean>() {
+        mLoginRequest.request(mobile, password,id,rid, new Callback<LoginBean>() {
             @Override
             public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                 if (getMvpView() != null) {

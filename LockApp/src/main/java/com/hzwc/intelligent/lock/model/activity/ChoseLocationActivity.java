@@ -335,6 +335,8 @@ public class ChoseLocationActivity extends AbstractMvpBaseActivity<AdCodeView, A
      * @param result
      * @param i
      */
+
+
     @Override
     public void onRegeocodeSearched(RegeocodeResult result, int i) {
         if (i == 1000) {//转换成功

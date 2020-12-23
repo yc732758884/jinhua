@@ -49,7 +49,7 @@ public class RegisterPresenter extends BaseMvpPresenter<RegisterView> {
     }
 
     //验证验证码
-    public void verification(String token, String phonenumber, String verifyCode) {
+    public void verification(String token, String phonenumber, int verifyCode) {
         if (getMvpView() != null) {
             getMvpView().dataLoading();
         }

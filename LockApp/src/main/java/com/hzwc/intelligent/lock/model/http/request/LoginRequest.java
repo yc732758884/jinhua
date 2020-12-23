@@ -24,7 +24,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class LoginRequest {
     private Call<LoginBean> mLoginCall;
 
-    public void request(String mobile, String password, String id,Callback<LoginBean> callback){
+    public void request(String mobile, String password, String id,String rid,Callback<LoginBean> callback){
 
 
         HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
@@ -51,7 +51,7 @@ public class LoginRequest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         HttpService apiService = retrofit.create(HttpService.class);
-        mLoginCall = apiService.login(mobile, password,id);
+        mLoginCall = apiService.login(mobile, password,id,rid);
         mLoginCall.enqueue(callback);
     }
 

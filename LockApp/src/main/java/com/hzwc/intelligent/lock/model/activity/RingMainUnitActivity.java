@@ -35,6 +35,10 @@ import com.hzwc.intelligent.lock.model.view.view.NewBuildView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
 import com.hzwc.intelligent.lock.mvpframework.view.AbstractMvpBaseActivity;
 import com.yanzhenjie.album.AlbumFile;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yzq.zxinglibrary.android.CaptureActivity;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -389,6 +393,10 @@ Log.e("awj","saveBitmapFile_size="+saveBitmapFile.length());
         NewArea na=new NewArea();
         na.setArea("无");
         na.setAreaId("");
+
+         if (area.getData()==null){
+             area.setData(new ArrayList<NewArea>());
+         }
         area.getData().add(0,na);
         nai=area;
         for (int i=0;i<area.getData().size();i++) {
@@ -408,9 +416,36 @@ Log.e("awj","saveBitmapFile_size="+saveBitmapFile.length());
     public void onViewClicked() {
 
 
-        Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // 启动相机
-        startActivityForResult(intent1, REQUEST_THUMBNAIL);
+        AndPermission.with(this)
+                .permission( Permission.CAMERA)
+                .onGranted(new Action() {
+                    @Override
+
+                    public void onAction(List<String> permissions) {
+
+                        if (permissions!=null&&permissions.size()>0) {
+
+                            Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent1, REQUEST_THUMBNAIL);
+                            return;
+                        } else {
+
+                            Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent1, REQUEST_THUMBNAIL);
+                        }
+                    }
+                }).onDenied(new Action() {
+            @Override
+            public void onAction(List<String> permissions) {
+                //用户拒绝
+
+            }
+        }).start();
+
+
+
+
+
 
 
     }

@@ -17,13 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hzwc.intelligent.lock.R;
+import com.hzwc.intelligent.lock.model.bean.BaseBean;
 import com.hzwc.intelligent.lock.model.bean.MessageBean;
+import com.hzwc.intelligent.lock.model.http.ConstantUrl;
+import com.hzwc.intelligent.lock.model.http.HttpService;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.LogUtils;
 import com.hzwc.intelligent.lock.model.utils.PhoneTextWatcher;
 import com.hzwc.intelligent.lock.model.utils.PhoneUtils;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
+import com.hzwc.intelligent.lock.model.utils.ToastUtil;
 import com.hzwc.intelligent.lock.model.view.persenter.MessagePresenter;
 import com.hzwc.intelligent.lock.model.view.view.MessageView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
@@ -33,6 +37,14 @@ import com.yzq.zxinglibrary.common.Constant;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @CreatePresenter(MessagePresenter.class)
 public class MessageActivity extends AbstractMvpBaseActivity<MessageView, MessagePresenter> implements MessageView, View.OnClickListener {
@@ -147,15 +159,11 @@ public class MessageActivity extends AbstractMvpBaseActivity<MessageView, Messag
             case R.id.bt_message_next:
                 if (mIsNext) {
                     if (mNobCode == 1) {
-                        if (mEtCode.getText().toString().trim().equals(dataCode)) {
-                            Intent intent = new Intent(MessageActivity.this,SetPasswordActivity.class);
-                            intent.putExtra("identifyCode",SpUtils.getInt(MessageActivity.this,"identifyCode",0));
-                            intent.putExtra("codeTel",SpUtils.getString(MessageActivity.this, "codeTel", ""));
-                            startActivity(intent);
+                     int code=Integer.parseInt(mEtCode.getText().toString());
+                        verification(mEtPhone.getText().toString(),code);
 
-                        } else {
-                            Toast.makeText(MessageActivity.this, "验证码错误" + dataCode + "=====" + mTvGetCode.getText().toString().trim(), Toast.LENGTH_SHORT).show();
-                        }
+
+
                     } else if (mNobCode == 0) {
                         Toast.makeText(MessageActivity.this, "该手机号未注册,不能找回密码", Toast.LENGTH_SHORT).show();
                     }
@@ -171,6 +179,70 @@ public class MessageActivity extends AbstractMvpBaseActivity<MessageView, Messag
 
     }
 
+    private  class myHandle extends  Handler{
+
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (msg.what==1){
+
+
+                dataCode = mEtCode.getText().toString();
+                SpUtils.setString(MessageActivity.this, "codeTel", FunctionUtils.replaceBlank(mEtPhone.getText().toString().trim()));
+                SpUtils.setInt(MessageActivity.this, "identifyCode", Integer.parseInt(dataCode));
+
+                String form=getIntent().getStringExtra("from");
+
+                Intent intent;
+                if (form.equals("change")){
+                    intent = new Intent(MessageActivity.this, ChangePwdActivity.class);
+
+                }else {
+
+                    intent = new Intent(MessageActivity.this, SetPasswordActivity.class);
+                    intent.putExtra("identifyCode",SpUtils.getInt(MessageActivity.this,"identifyCode",0));
+                    intent.putExtra("codeTel",SpUtils.getString(MessageActivity.this, "codeTel", ""));
+
+                }
+                startActivity(intent);
+            }
+        }
+    }
+
+
+    myHandle    myHandle=new myHandle();
+
+    public void verification( String phonenumber, int verifyCode) {
+
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ConstantUrl.PUBLIC_URL)
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            HttpService apiService = retrofit.create(HttpService.class);
+            Call<BaseBean> mVerificationCall = apiService.verification( phonenumber, verifyCode);
+            mVerificationCall.enqueue(new Callback<BaseBean>() {
+                @Override
+                public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                    ToastUtil.show(MessageActivity.this,response.body().getMsg());
+                     if(response.body().getCode()==0){
+                         myHandle.sendEmptyMessage(1);
+                     }
+                }
+
+                @Override
+                public void onFailure(Call<BaseBean> call, Throwable t) {
+
+                }
+            });
+        }
+
+
+
+
 
 
     @Override
@@ -182,14 +254,11 @@ public class MessageActivity extends AbstractMvpBaseActivity<MessageView, Messag
         if (result.getCode() == 0) {
             if (result.getRegister() == 1) {
                 mNobCode = 1;
-                dataCode = String.valueOf(result.getIdentifyCode());
-                SpUtils.setString(MessageActivity.this, "codeTel", FunctionUtils.replaceBlank(mEtPhone.getText().toString().trim()));
-                SpUtils.setInt(MessageActivity.this, "identifyCode", result.getIdentifyCode());
+
             } else {
                 mNobCode = 0;
             }
             Toast.makeText(MessageActivity.this, result.getReturnStatement(), Toast.LENGTH_SHORT).show();
-
         } else if (result.getCode() == 20000) {
             Toast.makeText(MessageActivity.this, result.getReturnStatement(), Toast.LENGTH_SHORT).show();
             return;
@@ -199,6 +268,8 @@ public class MessageActivity extends AbstractMvpBaseActivity<MessageView, Messag
         }
 
     }
+
+
 
     @Override
     public void dataFailure(String result) {

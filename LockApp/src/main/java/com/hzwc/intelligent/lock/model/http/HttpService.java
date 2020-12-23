@@ -66,7 +66,7 @@ public interface HttpService {
 
     //用户登录
     @POST("app/login")
-    Call<LoginBean> login(@Query("mobile") String username, @Query("password") String password,@Query("appId") String ID);
+    Call<LoginBean> login(@Query("mobile") String username, @Query("password") String password,@Query("appId") String ID,@Query("regesterId")  String  rid);
 
     //注册 手机号码 密码 名字 公司id  部门id 职位id 验证码
     @POST("app/register")
@@ -89,7 +89,7 @@ public interface HttpService {
 
     // 短信验证码验证
     @POST("app/sms/verification")
-    Call<BaseBean> verification(@Query("token") String token, @Query("phonenumber") String phonenumber, @Query("verifyCode") String verifyCode);
+    Call<BaseBean> verification( @Query("phoneNumber") String phonenumber, @Query("verifyCode") int verifyCode);
 
     // 修改密码  忘记密码
     @POST("app/forgetPassword")
@@ -300,5 +300,10 @@ public interface HttpService {
                                  @Query("lockNo") String lockid,
                                  @Query("userId") String userId,
                                  @Query("data")  String power);
+
+
+    //tuichu
+    @POST("app/logout")
+    Call<BaseBean>  loginout (@Header("token") String token);
 
 }

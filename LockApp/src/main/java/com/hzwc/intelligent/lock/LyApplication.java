@@ -1,13 +1,17 @@
 package com.hzwc.intelligent.lock;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.hzwc.intelligent.lock.model.activity.SettingActivity;
+import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.MediaLoader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -86,6 +90,7 @@ public class LyApplication extends Application {
 
 
         JPushInterface.setDebugMode(true);
+
         JPushInterface.init(this);
 
         if (instance == null) {
@@ -97,6 +102,8 @@ public class LyApplication extends Application {
                     .build()
             );
         }
+
+        registerActivityLifecycleCallbacks(mCallbacks);
     }
 
     // 对外暴露上下文
@@ -169,6 +176,40 @@ public class LyApplication extends Application {
         }
         return null;
     }
+
+    private ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            ActivityUtils.addActivity(activity);
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+           ActivityUtils.removeActivity(activity);
+        }
+    };
 
 
 }

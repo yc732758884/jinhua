@@ -11,11 +11,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +33,7 @@ import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.PhoneUtils;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
 import com.hzwc.intelligent.lock.model.utils.UniqueIDUtils;
+import com.hzwc.intelligent.lock.model.view.SafeKeyboard;
 import com.hzwc.intelligent.lock.model.view.persenter.LoginPresenter;
 import com.hzwc.intelligent.lock.model.view.view.LoginView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
@@ -60,6 +67,8 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
     TextView tvLoginId;
     private boolean empty;
     private Boolean mIsLogin;
+
+    private SafeKeyboard safeKeyboard;
 
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
         @Override
@@ -115,6 +124,8 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         //返回值为true时，通知栏打开，false未打开
@@ -126,6 +137,16 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
 //        }
 
         mIsLogin = SpUtils.getBoolean(LoginActivity.this, "isLogin", false);
+
+        EditText safeEdit = findViewById(R.id.et_login_password);
+       LinearLayout keyboardContainer = findViewById(R.id.keyboardViewPlace);
+//        @SuppressLint("InflateParams")
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_keyboard_containor, null);
+        safeKeyboard = new SafeKeyboard(getApplicationContext(), keyboardContainer, safeEdit, R.layout.layout_keyboard_containor, view.findViewById(R.id.safeKeyboardLetter).getId());
+        safeKeyboard.setDelDrawable(this.getResources().getDrawable(R.drawable.icon_del));
+        safeKeyboard.setLowDrawable(this.getResources().getDrawable(R.drawable.icon_capital_default));
+        safeKeyboard.setUpDrawable(this.getResources().getDrawable(R.drawable.icon_capital_selected));
+
 
         setPhoneStateManifest();
 
@@ -259,7 +280,9 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
 
 //                CrashReport.testJavaCrash();
 
-                getMvpPresenter().clickRequest(etLoginUsername.getText().toString().trim(), etLoginPassword.getText().toString().trim(),UniqueIDUtils.getUniqueID(this));
+                getMvpPresenter().clickRequest(etLoginUsername.getText().toString().trim(),
+                        etLoginPassword.getText().toString().trim(),
+                        UniqueIDUtils.getUniqueID(this),JPushInterface.getRegistrationID(this));
                 showProgressDialog(this, "加载中......");
                 break;
             case R.id.tv_register:
@@ -291,6 +314,18 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (safeKeyboard.isShow()) {
+                safeKeyboard.hideKeyboard();
+                return false;
+            }
+            return super.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

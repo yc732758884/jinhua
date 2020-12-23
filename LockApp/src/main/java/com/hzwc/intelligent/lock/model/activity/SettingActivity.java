@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hzwc.intelligent.lock.model.base.BaseActivity;
+import com.hzwc.intelligent.lock.model.bean.BaseBean;
+import com.hzwc.intelligent.lock.model.http.ConstantUrl;
+import com.hzwc.intelligent.lock.model.http.HttpService;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
@@ -27,6 +30,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.provider.UserDictionary.Words.APP_ID;
 import static com.tencent.bugly.beta.Beta.checkUpgrade;
@@ -142,7 +150,9 @@ public class SettingActivity extends BaseActivity {
                 if (FunctionUtils.isFastClick()) {
                     return;
                 }
-                ActivityUtils.startActivity(SettingActivity.this, ChangePwdActivity.class);
+                Intent in=new Intent(SettingActivity.this, MessageActivity.class);
+                in.putExtra("from","change");
+                startActivity(in);
                 break;
             case R.id.rl_set_clear:
                 break;
@@ -161,6 +171,8 @@ public class SettingActivity extends BaseActivity {
                 if (FunctionUtils.isFastClick()) {
                     return;
                 }
+
+                loginout(this);
                 JPushInterface.cleanTags(SettingActivity.this,SpUtils.getInt(this,"userId",0));
 
                 SpUtils.setBoolean(SettingActivity.this, "isLogin", false);
@@ -173,6 +185,35 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
+
+    public  void   loginout(Context context){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(ConstantUrl.PUBLIC_URL)
+                .build();
+
+        HttpService service = retrofit.create(HttpService.class);
+
+        Call<BaseBean> call = service.loginout(SpUtils.getString(context, "token", ""));
+
+        call.enqueue(new Callback<BaseBean>() {
+            @Override
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+
+
+            }
+        });
+
+
+    }
     private void loadUpgradeInfo() {
 
 

@@ -12,7 +12,7 @@ public class  ConstantUrl {
     //public static final String PUBLIC_URL = "http://192.168.1.211:8080/btlock/";
 
     //public static  String PUBLIC_URL ="http://115.29.204.20:8010/btlockyidong/";
-    public static  String PUBLIC_URL ="http://192.168.1.120:8010/btlockyidong/";
+    public static  String PUBLIC_URL ="http://115.29.204.20/btlockyidongcq/";
 
    // public static  String PUBLIC_URL ="http://115.29.204.20:8010/btlockyidong/";
 //    public static final String PUBLIC_URL = "http://192.168.1.230:8080/btlock/";
