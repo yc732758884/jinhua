@@ -31,6 +31,7 @@ import com.hzwc.intelligent.lock.model.bean.LoginBean;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.PhoneUtils;
+import com.hzwc.intelligent.lock.model.utils.SecurityAES;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
 import com.hzwc.intelligent.lock.model.utils.UniqueIDUtils;
 import com.hzwc.intelligent.lock.model.view.SafeKeyboard;
@@ -281,7 +282,8 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
 //                CrashReport.testJavaCrash();
 
                 getMvpPresenter().clickRequest(etLoginUsername.getText().toString().trim(),
-                        etLoginPassword.getText().toString().trim(),
+
+                        SecurityAES.encryptAES(etLoginPassword.getText().toString().trim()),
                         UniqueIDUtils.getUniqueID(this),JPushInterface.getRegistrationID(this));
                 showProgressDialog(this, "加载中......");
                 break;

@@ -11,6 +11,7 @@ import com.hzwc.intelligent.lock.model.bean.areaBean;
 import com.hzwc.intelligent.lock.model.bean.cityBean;
 import com.hzwc.intelligent.lock.model.http.ConstantUrl;
 import com.hzwc.intelligent.lock.model.http.HttpService;
+import com.hzwc.intelligent.lock.model.utils.SecurityAES;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,8 +45,8 @@ public class RegisterNextRequest {
 
                 .build();
         HttpService apiService = retrofit.create(HttpService.class);
-
-        mRegisterCall = apiService.register( mobile, password, name, areaid, postId,code,id);
+          String pwd= SecurityAES.encryptAES(password);
+        mRegisterCall = apiService.register( mobile, pwd, name, areaid, postId,code,id);
         mRegisterCall.enqueue(callback);
     }
 

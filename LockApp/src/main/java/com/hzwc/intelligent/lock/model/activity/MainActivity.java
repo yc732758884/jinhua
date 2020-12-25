@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -18,12 +19,15 @@ import com.hzwc.intelligent.lock.model.fragment.AlarmFragment;
 import com.hzwc.intelligent.lock.model.fragment.OpenLockFragment;
 import com.hzwc.intelligent.lock.model.fragment.InstallFragment;
 import com.hzwc.intelligent.lock.model.fragment.LocationFragment;
+import com.hzwc.intelligent.lock.model.utils.SecurityAES;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
 import com.hzwc.intelligent.lock.model.view.BottomNavigationViewHelper;
 import com.hzwc.intelligent.lock.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -144,7 +148,11 @@ public class MainActivity extends AppCompatActivity {
             changeFragment(R.id.fore);
             navigation.setSelectedItemId(R.id.fore);
         }
+
+
     }
+
+
 
     private void initData(Bundle savedInstanceState) {
         mFragmentTags = new ArrayList<>(Arrays.asList("OneFragment", "TwoFragment", "ThreeFragment", "ForeFragment", "FiveFragment"));

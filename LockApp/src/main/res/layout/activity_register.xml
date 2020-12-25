@@ -121,7 +121,7 @@
             android:layout_marginLeft="@dimen/base7dp"
             android:layout_weight="4"
             android:background="@null"
-            android:digits="0123456789qwertyuiopasdfghjklzxcvbnm"
+
             android:hint="@string/change_put_new_pwd"
             android:inputType="textPassword"
             android:textColorHint="@color/fontOne"
@@ -181,7 +181,7 @@
             android:layout_marginLeft="@dimen/base7dp"
             android:layout_weight="4"
             android:background="@null"
-            android:digits="0123456789qwertyuiopasdfghjklzxcvbnm"
+
             android:hint="@string/change_put_new_pwd"
             android:inputType="textPassword"
             android:textColorHint="@color/fontOne"

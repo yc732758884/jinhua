@@ -216,7 +216,7 @@ public class RegisterActivity extends AbstractMvpBaseActivity<RegisterView, Regi
             return true;
         }
 
-        if ( !Pattern.matches("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$", etRegisterNew.getText().toString().trim())){
+        if ( !Pattern.matches("^(?=.*\\d)(?=.*[a-zA-Z])[\\da-zA-Z~!@#$%^&*]{6,18}$", etRegisterNew.getText().toString().trim())){
 
             Toast.makeText(RegisterActivity.this, "需要字母和数字", Toast.LENGTH_SHORT).show();
             return true;

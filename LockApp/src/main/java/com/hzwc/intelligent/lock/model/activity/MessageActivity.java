@@ -196,7 +196,7 @@ public class MessageActivity extends AbstractMvpBaseActivity<MessageView, Messag
                 String form=getIntent().getStringExtra("from");
 
                 Intent intent;
-                if (form.equals("change")){
+                if (form!=null&&form.equals("change")){
                     intent = new Intent(MessageActivity.this, ChangePwdActivity.class);
 
                 }else {

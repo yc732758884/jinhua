@@ -4,6 +4,7 @@ package com.hzwc.intelligent.lock.model.http.request;
 import com.hzwc.intelligent.lock.model.bean.BaseBean;
 import com.hzwc.intelligent.lock.model.http.ConstantUrl;
 import com.hzwc.intelligent.lock.model.http.HttpService;
+import com.hzwc.intelligent.lock.model.utils.SecurityAES;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +27,8 @@ public class ChangePasswordRequest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         HttpService apiService = retrofit.create(HttpService.class);
-        mChangePwdCall = apiService.forgetPassword(mobile, verifyCode,password,id);
+          String  pwd= SecurityAES.encryptAES(password);
+        mChangePwdCall = apiService.forgetPassword(mobile, verifyCode,pwd,id);
         mChangePwdCall.enqueue(callback);
     }
 
