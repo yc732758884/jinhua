@@ -13,6 +13,7 @@ import android.util.Log;
 import com.hzwc.intelligent.lock.model.activity.SettingActivity;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.MediaLoader;
+import com.hzwc.intelligent.lock.model.utils.MyCrashHandler;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
@@ -24,9 +25,20 @@ import com.yanzhenjie.album.AlbumConfig;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
 import java.util.Locale;
 
+import javax.crypto.NoSuchPaddingException;
+
 import cn.jpush.android.api.JPushInterface;
+import devliving.online.securedpreferencestore.DefaultRecoveryHandler;
+import devliving.online.securedpreferencestore.SecuredPreferenceStore;
 
 
 /**
@@ -72,6 +84,20 @@ public class LyApplication extends Application {
         mMainThreadLooper = getMainLooper();
         LeakCanary.install(this);
         refWatcher = setupLeakCanary();
+
+
+
+        String storeFileName = "securedStore";
+
+        String keyPrefix = "vss";
+        byte[] seedKey = "SecuredSeedData".getBytes();
+        try {
+            SecuredPreferenceStore.init(getApplicationContext(), new DefaultRecoveryHandler());
+        } catch (Exception e){
+
+        }
+//                MyCrashHandler handler = new MyCrashHandler();
+//        Thread.setDefaultUncaughtExceptionHandler(handler);
 //
 //        CrashReport.initCrashReport(getApplicationContext());
         String  packageName = context.getPackageName();

@@ -22,13 +22,13 @@ public class Comutil {
 
             for (int i = 0; i < strs.length; i++)  {
                 temp=Integer.parseInt(strs[i]);
-                   bytes[i]= (byte) temp;
-               // bytes[i]= Byte.parseByte(Integer.toHexString(temp));
+                bytes[i]= (byte) temp;
+
+             //   bytes[i]= Byte.parseByte(Integer.toHexString(temp));
             }
 
             return bytes;
         }catch (Exception e){
-            Log.e("awj  excaption",e.getMessage());
             return null;
         }
 

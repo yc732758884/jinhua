@@ -181,5 +181,26 @@
         android:text="@string/hint_02"
         android:textColor="@color/text_color_gray" />
 
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/btn_code_lock"
+        android:text="关锁拍照"
+        android:layout_below="@id/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_code_box"
+        android:text="关锁请扫描光交箱二维码"
+        android:layout_below="@id/btn_code_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+
 
 </RelativeLayout>

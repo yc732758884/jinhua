@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import com.hzwc.intelligent.lock.model.fragment.AlarmFragment;
 import com.hzwc.intelligent.lock.model.fragment.OpenLockFragment;
 import com.hzwc.intelligent.lock.model.fragment.InstallFragment;
 import com.hzwc.intelligent.lock.model.fragment.LocationFragment;
-import com.hzwc.intelligent.lock.model.utils.SecurityAES;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
 import com.hzwc.intelligent.lock.model.view.BottomNavigationViewHelper;
 import com.hzwc.intelligent.lock.R;

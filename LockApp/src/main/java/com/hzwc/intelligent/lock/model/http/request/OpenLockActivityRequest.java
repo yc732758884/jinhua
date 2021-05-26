@@ -8,7 +8,6 @@ import com.hzwc.intelligent.lock.model.http.ConstantUrl;
 import com.hzwc.intelligent.lock.model.http.HttpService;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -28,27 +27,10 @@ public class OpenLockActivityRequest {
     private Call<BaseBean> save;
     public void unlockAfter(String token, int lockNo, int userId, int power, Double lon, Double lat, Callback<BaseBean> callback) {
 
-        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-
-                Log.e("open", "OkHttp====Message:" + message);
-
-            }
-        });
-        loggingInterceptor.setLevel(level);
-
-
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .client(client)
+
                 .baseUrl(ConstantUrl.PUBLIC_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -60,27 +42,12 @@ public class OpenLockActivityRequest {
 
     public void unlockUpLoad(String token, String lockNo, String userId, String power, Callback<BaseBean> callback) {
 
-        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-
-                Log.e("save", "OkHttp====Message:" + message);
-
-            }
-        });
-        loggingInterceptor.setLevel(level);
 
 
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .client(client)
+
                 .baseUrl(ConstantUrl.PUBLIC_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -93,27 +60,10 @@ public class OpenLockActivityRequest {
 
     public void saveLockLog(String token, String lockNo, String userId, String data, Callback<BaseBean> callback) {
 
-        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-
-                Log.e("close", "OkHttp====Message:" + message);
-
-            }
-        });
-        loggingInterceptor.setLevel(level);
-
-
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .client(client)
+
                 .baseUrl(ConstantUrl.PUBLIC_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

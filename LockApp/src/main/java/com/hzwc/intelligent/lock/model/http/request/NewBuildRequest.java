@@ -17,7 +17,6 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,26 +61,9 @@ public class NewBuildRequest {
 
     public  void   getNewArea(String  token,Callback<NewAreaInfo> callback){
 
-        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-
-                Log.e("open", "OkHttp====Message:" + message);
-
-            }
-        });
-        loggingInterceptor.setLevel(level);
-
-
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .client(client)
+
                 .baseUrl(ConstantUrl.PUBLIC_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

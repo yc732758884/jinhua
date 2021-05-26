@@ -38,7 +38,7 @@ import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
-import com.yzq.zxinglibrary.android.CaptureActivity;
+
 
 import java.io.BufferedOutputStream;
 import java.io.File;

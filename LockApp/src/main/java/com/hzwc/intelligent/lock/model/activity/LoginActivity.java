@@ -28,18 +28,28 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hzwc.intelligent.lock.R;
 import com.hzwc.intelligent.lock.model.bean.LoginBean;
+import com.hzwc.intelligent.lock.model.bean.MineBean;
+import com.hzwc.intelligent.lock.model.http.ConstantUrl;
+import com.hzwc.intelligent.lock.model.http.HttpService;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
+import com.hzwc.intelligent.lock.model.utils.AmapLocationUtils;
 import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
-import com.hzwc.intelligent.lock.model.utils.PhoneUtils;
-import com.hzwc.intelligent.lock.model.utils.SecurityAES;
+
+import com.hzwc.intelligent.lock.model.utils.SecurityRSA;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
+import com.hzwc.intelligent.lock.model.utils.ToastUtil;
 import com.hzwc.intelligent.lock.model.utils.UniqueIDUtils;
 import com.hzwc.intelligent.lock.model.view.SafeKeyboard;
 import com.hzwc.intelligent.lock.model.view.persenter.LoginPresenter;
 import com.hzwc.intelligent.lock.model.view.view.LoginView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
 import com.hzwc.intelligent.lock.mvpframework.view.AbstractMvpBaseActivity;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
+import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -47,6 +57,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -148,8 +166,26 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
         safeKeyboard.setLowDrawable(this.getResources().getDrawable(R.drawable.icon_capital_default));
         safeKeyboard.setUpDrawable(this.getResources().getDrawable(R.drawable.icon_capital_selected));
 
-
         setPhoneStateManifest();
+
+        AndPermission.with(this)
+                .permission( Permission.ACCESS_COARSE_LOCATION)
+                .onGranted(new Action() {
+                    @Override
+
+                    public void onAction(List<String> permissions) {
+
+
+
+                    }
+                }).onDenied(new Action() {
+            @Override
+            public void onAction(List<String> permissions) {
+                ToastUtil.show("请打开位置权限");
+
+            }
+        }).start();
+
 
 
         if (mIsLogin) {
@@ -225,29 +261,18 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
 
     public  void  HandleLogin(LoginBean result){
 
-        if (result != null && result.getCode() == 0) {
-            SpUtils.setString(LoginActivity.this, "token", result.getToken());
-            SpUtils.setString(LoginActivity.this, "username", etLoginUsername.getText().toString());
-            SpUtils.setInt(LoginActivity.this, "userId", result.getUserId());
-            mIsLogin = true;
-            SpUtils.setBoolean(LoginActivity.this, "isLogin", mIsLogin);
-//            Toast.makeText(LoginActivity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
-            ActivityUtils.startActivityAndFinish(LoginActivity.this, MainActivity.class);
+        if (result != null && result.getCode() == 0 &&  !TextUtils.isEmpty(result.getToken())) {
 
-            Log.e("awj userId =", result.getUserId() + "=");
-            mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "" + result.getUserId()));
-            dissmissProgressDialog();
+            check(result);
+
         } else if (result != null && result.getCode() == 10000) {
             dissmissProgressDialog();
             LoginPresenter.showDialog(LoginActivity.this, result.getMsg());
 
         } else {
-
             mIsLogin = false;
             dissmissProgressDialog();
             Toast.makeText(LoginActivity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
-
-
         }
     }
 
@@ -266,7 +291,6 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
                 if (FunctionUtils.isFastClick()) {
                     return;
                 }
-
                 ActivityUtils.startActivity(LoginActivity.this, MessageActivity.class);
 
                 break;
@@ -281,9 +305,10 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
 
 //                CrashReport.testJavaCrash();
 
-                getMvpPresenter().clickRequest(etLoginUsername.getText().toString().trim(),
+                Log.e("sssss",JPushInterface.getRegistrationID(this)+"~~~~~~~~");
 
-                        SecurityAES.encryptAES(etLoginPassword.getText().toString().trim()),
+                getMvpPresenter().clickRequest(etLoginUsername.getText().toString().trim(),
+                        SecurityRSA.encode(etLoginPassword.getText().toString().trim()),
                         UniqueIDUtils.getUniqueID(this),JPushInterface.getRegistrationID(this));
                 showProgressDialog(this, "加载中......");
                 break;
@@ -298,6 +323,8 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
     }
 
     public boolean isEmpty() {
+
+
         if (TextUtils.isEmpty(FunctionUtils.replaceBlank(etLoginUsername.getText().toString().trim()))
                 ||etLoginUsername.getText().toString().trim().length()!=11) {
             Toast.makeText(LoginActivity.this, getString(R.string.login_message_username), Toast.LENGTH_SHORT).show();
@@ -333,13 +360,13 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
 
     private void setPhoneStateManifest() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED
+                  || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
         } else {
-
-
             tvLoginId.setText("AppId: "+UniqueIDUtils.getUniqueID(this));
-
 
         }
     }
@@ -372,4 +399,36 @@ public class LoginActivity extends AbstractMvpBaseActivity<LoginView, LoginPrese
 
     }
 
+    void  check(LoginBean result) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ConstantUrl.PUBLIC_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        HttpService apiService = retrofit.create(HttpService.class);
+        apiService.getUserInfo1(result.getToken()).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(i -> {
+
+                    if (i.getCode()==0){
+                        SpUtils.setString(LoginActivity.this, "token", result.getToken());
+                        SpUtils.setString(LoginActivity.this, "username", etLoginUsername.getText().toString());
+                        SpUtils.setInt(LoginActivity.this, "userId", result.getUserId());
+                        mIsLogin = true;
+                        SpUtils.setBoolean(LoginActivity.this, "isLogin", mIsLogin);
+//            Toast.makeText(LoginActivity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
+                        ActivityUtils.startActivityAndFinish(LoginActivity.this, MainActivity.class);
+
+
+                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "" + result.getUserId()));
+                        dissmissProgressDialog();
+                    }else {
+                        ToastUtil.show("验证不通过");
+                    }
+
+                }, t -> {
+                });
+
+    }
 }

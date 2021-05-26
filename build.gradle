@@ -5,6 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {url 'https://developer.huawei.com/repo/'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -12,6 +13,7 @@ buildscript {
         //加入下面这段代码
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
         classpath 'com.tencent.bugly:symtabfileuploader:latest.release'
+        classpath 'com.huawei.agconnect:agcp:1.4.1.300'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -22,6 +24,7 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 }
 

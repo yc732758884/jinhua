@@ -3,6 +3,7 @@ package com.hzwc.intelligent.lock.model.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hzwc.intelligent.lock.R;
+import com.hzwc.intelligent.lock.model.bean.Scan;
 
 import java.util.ArrayList;
 
@@ -21,12 +24,12 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
     private Context mContext;
-    private ArrayList<String> mArrayList;
+    private ArrayList<Scan> mArrayList;
     private MyInterface mMyInterface;
 
-    public MyAdapter(Context context, ArrayList<String> arrayList) {
+    public MyAdapter(Context context, ArrayList<Scan> arrayList) {
         mContext = context;
-        mArrayList = arrayList;
+        mArrayList =arrayList ;
     }
 
     @Override
@@ -46,10 +49,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
+
         if (!mArrayList.get(position).equals("")) {
-            holder.et_install_mac.setText(mArrayList.get(position));
+            holder.et_install_mac.setText(mArrayList.get(position).getMac());
 
         }
+
+        if (!TextUtils.isEmpty((mArrayList.get(position).getCode()))){
+            holder.code.setText(mArrayList.get(position).getCode());
+
+        }
+
+
 
 
 //        if (position==mArrayList.size()-1){
@@ -92,7 +103,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mArrayList.set(position, holder.et_install_mac.getText().toString().trim());
+                mArrayList.get(position).setMac(holder.et_install_mac.getText().toString().trim());
             }
         });
     }
@@ -115,12 +126,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
         private ImageView iv_icon;
         private EditText et_install_mac;
         private  ImageView  refresh;
+        private TextView  code;
 
         public MyHolder(View itemView) {
             super(itemView);
             iv_icon = itemView.findViewById(R.id.iv_install_zxing);
             et_install_mac = itemView.findViewById(R.id.et_install_mac);
-
+            code=itemView.findViewById(R.id.tv_code);
             refresh=itemView.findViewById(R.id.ima_install_refresh);
         }
     }

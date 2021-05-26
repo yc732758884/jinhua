@@ -6,9 +6,11 @@ import android.util.Log;
 import com.hzwc.intelligent.lock.model.bean.LoginBean;
 import com.hzwc.intelligent.lock.model.http.ConstantUrl;
 import com.hzwc.intelligent.lock.model.http.HttpService;
+import com.hzwc.intelligent.lock.model.utils.SecurityRSA;
+
+import java.net.Proxy;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -27,22 +29,8 @@ public class LoginRequest {
     public void request(String mobile, String password, String id,String rid,Callback<LoginBean> callback){
 
 
-        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-
-                Log.e("login", "OkHttp====Message:" + message);
-
-            }
-        });
-        loggingInterceptor.setLevel(level);
-
-
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
@@ -51,7 +39,7 @@ public class LoginRequest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         HttpService apiService = retrofit.create(HttpService.class);
-        mLoginCall = apiService.login(mobile, password,id,rid);
+        mLoginCall = apiService.login(SecurityRSA.encode(mobile), password,id,rid);
         mLoginCall.enqueue(callback);
     }
 

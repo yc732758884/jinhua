@@ -37,7 +37,9 @@ import com.hzwc.intelligent.lock.model.bean.UnlocksBean;
 import com.hzwc.intelligent.lock.model.bean.Update;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.Comutil;
+import com.hzwc.intelligent.lock.model.utils.SecurityRSA;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
+import com.hzwc.intelligent.lock.model.utils.ToastUtil;
 import com.hzwc.intelligent.lock.model.view.persenter.OpenLockPresenter;
 import com.hzwc.intelligent.lock.model.view.view.OpenLockView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
@@ -90,9 +92,14 @@ public class OpenLockFragment extends AbstractBaseFragment<OpenLockView, OpenLoc
         InitBlue();
 
 
-      //  DownloadNewApk("http://115.29.204.20:80/appdownload/LockApp-hzyidong.apk");
 
         getMvpPresenter().update();
+
+
+
+
+
+
 
 
         return mView;
@@ -210,12 +217,17 @@ public class OpenLockFragment extends AbstractBaseFragment<OpenLockView, OpenLoc
                     Intent intent = new Intent(getActivity(), OpenLockActivity.class);
                     intent.putExtra("isLock", mIsLockMap.get(unlockBean.getLockNo()));
                     intent.putExtra("lockNo", unlockBean.getLockNo());
-                    intent.putExtra("password", unlockBean.getPassword());
+                    intent.putExtra("password",SecurityRSA.decode(unlockBean.getPassword()) );
 
                     intent.putExtra("cabinetName", unlockBean.getCabinetName());
                     intent.putExtra("lockId", unlockBean.getLockId());
-                    intent.putExtra("key", Comutil. string2Byte(unlockBean.getKeyCode()));
+                    String str=SecurityRSA.decode(unlockBean.getKeyCode());
+
+                    intent.putExtra("key", Comutil. string2Byte(str));
                     intent.putExtra("close",unlockBean.getIsCloseLock());
+
+
+
                     startActivity(intent);
                 } else if (unlockBean.getLockState() == 3) {//无权限
                     getMvpPresenter().getDialogView(getContext().getResources().getString(R.string.hint_03), getActivity(), 3, unlockBean.getLockNo());

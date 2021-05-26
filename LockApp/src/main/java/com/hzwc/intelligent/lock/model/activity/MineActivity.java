@@ -20,6 +20,7 @@ import com.hzwc.intelligent.lock.model.bean.MineBean;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.NotificationsUtils;
+import com.hzwc.intelligent.lock.model.utils.SecurityRSA;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
 import com.hzwc.intelligent.lock.model.utils.ToastUtil;
 import com.hzwc.intelligent.lock.model.view.persenter.MinePresenter;
@@ -142,8 +143,8 @@ public class MineActivity extends AbstractMvpBaseActivity<MineView, MinePresente
 
         if (result.getCode() == 0) {
             tvMineUsername.setText(result.getUserInfo().get(0).getName());
-            tvUsernameNub.setText(String.format(getString(R.string.username), result.getUserInfo().get(0).getUsername()));
-            tvMineTel.setText(result.getUserInfo().get(0).getPhone());
+            tvUsernameNub.setText(String.format(getString(R.string.username), SecurityRSA.decode(result.getUserInfo().get(0).getUsername())));
+            tvMineTel.setText(SecurityRSA.decode(result.getUserInfo().get(0).getPhone()));
             tvMineUnit.setText(result.getUserInfo().get(0).getCompany());
             tvMineDepartment.setText(result.getUserInfo().get(0).getDepartment());
             tvMinePost.setText(result.getUserInfo().get(0).getPost());

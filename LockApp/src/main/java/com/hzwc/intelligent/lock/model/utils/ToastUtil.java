@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.services.core.AMapException;
+import com.hzwc.intelligent.lock.LyApplication;
 
 /**
  * Created by Fussen on 2016/11/1.
@@ -47,6 +48,9 @@ public class ToastUtil {
 
     public static void show(Context context, String info) {
         Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
+    }
+    public static void show( String info) {
+        Toast.makeText(LyApplication.getApplication(), info, Toast.LENGTH_SHORT).show();
     }
 
     public static void show(Context context, int info) {

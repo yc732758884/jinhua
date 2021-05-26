@@ -3,6 +3,10 @@ package com.hzwc.intelligent.lock.model.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.hzwc.intelligent.lock.LyApplication;
+
+import devliving.online.securedpreferencestore.SecuredPreferenceStore;
+
 /**
  * 轻量级的存储类SharePregerence：本地xml文件存储软件数据参数
  * @author apple
@@ -19,7 +23,8 @@ public class SpUtils {
             sp = context.getSharedPreferences(FILE_NAME,
                     Context.MODE_PRIVATE);
         }
-        return sp.getBoolean(key, defValue);
+        SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
+        return  prefStore.getBoolean(key,defValue);
     }
 
     public static void setBoolean(Context context, String key, boolean value) {
@@ -27,7 +32,12 @@ public class SpUtils {
             sp = context.getSharedPreferences(FILE_NAME,
                     Context.MODE_PRIVATE);
         }
-        sp.edit().putBoolean(key, value).commit();
+
+
+        SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
+        prefStore.edit().putBoolean( key ,value).apply();
+
+
     }
     //存储字符串类型
     public static String getString(Context context, String key,
@@ -36,7 +46,10 @@ public class SpUtils {
             sp = context.getSharedPreferences(FILE_NAME,
                     Context.MODE_PRIVATE);
         }
-        return sp.getString(key, defValue);
+        SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
+
+
+        return  prefStore.getString(key,defValue);
     }
 
     public static void setString(Context context, String key, String value){
@@ -44,7 +57,8 @@ public class SpUtils {
             sp = context.getSharedPreferences(FILE_NAME,
                     Context.MODE_PRIVATE);
         }
-        sp.edit().putString(key, value).commit();
+        SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
+        prefStore.edit().putString( key ,value).apply();
     }
     //存储数字类型
     public static int getInt(Context context, String key,
@@ -53,7 +67,8 @@ public class SpUtils {
             sp = context.getSharedPreferences(FILE_NAME,
                     Context.MODE_PRIVATE);
         }
-        return sp.getInt(key, defValue);
+        SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
+        return prefStore.getInt(key,defValue);
     }
 
     public static void setInt(Context context, String key, int value){
@@ -61,30 +76,17 @@ public class SpUtils {
             sp = context.getSharedPreferences(FILE_NAME,
                     Context.MODE_PRIVATE);
         }
-        sp.edit().putInt(key, value).commit();
+        SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
+        prefStore.edit().putInt( key ,value).apply();
     }
 
 
-    // 存储长正型的数据，较大数据
-    public static long getLong(Context context, String key,
-                               long defValue){
-        if(sp==null){
-            sp = context.getSharedPreferences(FILE_NAME,
-                    Context.MODE_PRIVATE);
-        }
-        return sp.getLong(key, defValue);
-    }
 
-    public static void setLong(Context context, String key, long value){
-        if(sp==null){
-            sp = context.getSharedPreferences(FILE_NAME,
-                    Context.MODE_PRIVATE);
-        }
-        sp.edit().putLong(key, value).commit();
-    }
-    public static void clearData() {
-        sp.edit().clear().commit();
-    }
+
+
+
+
+
 
 
 }

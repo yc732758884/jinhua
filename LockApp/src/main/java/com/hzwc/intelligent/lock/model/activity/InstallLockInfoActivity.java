@@ -44,11 +44,10 @@ import com.hzwc.intelligent.lock.model.view.view.InstallInfoLockView;
 import com.hzwc.intelligent.lock.model.view.view.LoginView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
 import com.hzwc.intelligent.lock.mvpframework.view.AbstractMvpBaseActivity;
+import com.journeyapps.barcodescanner.CaptureActivity;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -258,7 +257,7 @@ public class InstallLockInfoActivity extends AbstractMvpBaseActivity<InstallInfo
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                String content = data.getExtras().getString("result");
                 LogUtils.e("------扫描结果1   " + content);
                 tvInfoLockMac.setText(content + "");
             }

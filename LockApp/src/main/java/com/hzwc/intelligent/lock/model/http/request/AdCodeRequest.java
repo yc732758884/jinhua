@@ -8,8 +8,9 @@ import com.hzwc.intelligent.lock.model.bean.BaseBean;
 import com.hzwc.intelligent.lock.model.http.ConstantUrl;
 import com.hzwc.intelligent.lock.model.http.HttpService;
 
+import java.net.Proxy;
+
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -26,26 +27,9 @@ public class AdCodeRequest {
     private Call<AdCodeBean> mAdCodeCall;
     public void request(String token, String adCode, Callback<AdCodeBean> callback){
 
-        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-
-                Log.e("open", "OkHttp====Message:" + message);
-
-            }
-        });
-
-
-        loggingInterceptor.setLevel(level);
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
-
+         OkHttpClient  client=new OkHttpClient().newBuilder().build();
         Retrofit retrofit = new Retrofit.Builder()
-                .client(client)
+                 .client(client)
                 .baseUrl(ConstantUrl.PUBLIC_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

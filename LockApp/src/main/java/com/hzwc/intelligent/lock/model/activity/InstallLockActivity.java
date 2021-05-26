@@ -1,7 +1,11 @@
 package com.hzwc.intelligent.lock.model.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +41,15 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.google.gson.Gson;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Result;
+import com.google.zxing.common.GlobalHistogramBinarizer;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.multi.qrcode.QRCodeMultiReader;
+import com.google.zxing.qrcode.QRCodeReader;
+import com.google.zxing.qrcode.encoder.QRCode;
 import com.hzwc.intelligent.lock.R;
 import com.hzwc.intelligent.lock.model.adapter.MyAdapter;
 import com.hzwc.intelligent.lock.model.adapter.MyInterface;
@@ -44,8 +57,11 @@ import com.hzwc.intelligent.lock.model.bean.BaseBean;
 import com.hzwc.intelligent.lock.model.bean.InstallLock;
 import com.hzwc.intelligent.lock.model.bean.LockMacBean;
 import com.hzwc.intelligent.lock.model.bean.MarkerBean;
+import com.hzwc.intelligent.lock.model.bean.Scan;
 import com.hzwc.intelligent.lock.model.bean.SearchAddressInfo;
 import com.hzwc.intelligent.lock.model.bluetooth.ClientManager;
+import com.hzwc.intelligent.lock.model.http.ConstantUrl;
+import com.hzwc.intelligent.lock.model.http.HttpService;
 import com.hzwc.intelligent.lock.model.utils.ActivityUtils;
 import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.LogUtils;
@@ -60,12 +76,12 @@ import com.inuker.bluetooth.library.search.SearchRequest;
 import com.inuker.bluetooth.library.search.SearchResult;
 import com.inuker.bluetooth.library.search.response.SearchResponse;
 import com.inuker.bluetooth.library.utils.BluetoothLog;
+import com.journeyapps.barcodescanner.CaptureActivity;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,6 +91,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 @CreatePresenter(InstallAddLockPresenter.class)
@@ -134,7 +158,7 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
     private MarkerOptions markerOptions;
     private Marker marker;
     private MyAdapter mListAdapter;
-    private List<String> list;  // 扫描的mac
+    private ArrayList<Scan> list;  // 扫描的mac
     private List<String> macList = new ArrayList<>();  // 服务器获取的到的Mac
 
     private int cabinetId;
@@ -144,8 +168,12 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
     private String content;
     private HashMap<String, String> mCabinetIdMap;
     private HashMap<String, String> mLockNoMap;
+    private  HashMap<String,String>  codeMap;
     private List<MarkerBean.CabinetsBean.LocksBean> locksBeans;
 
+    private  Button btn_scan;
+    private  int Scanposition=-1;
+    private  String cabinetCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +196,43 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
         ivTitleReturn.setVisibility(View.VISIBLE);
         tvSearchOver.setVisibility(View.VISIBLE);
 
+
+        btn_scan=findViewById(R.id.btn_scan);
+
+        btn_scan.setOnClickListener(v -> {
+
+
+
+
+                    AndPermission.with(this)
+                            .permission( Permission.CAMERA)
+                            .onGranted(new Action() {
+                                @Override
+
+                                public void onAction(List<String> permissions) {
+
+                                    if (permissions!=null&&permissions.size()>0) {
+                                        Intent intent = new Intent(InstallLockActivity.this, CaptureActivity.class);
+                                        startActivityForResult(intent, 102);
+
+
+
+                                    }
+
+
+                                }
+                            }).onDenied(new Action() {
+                        @Override
+                        public void onAction(List<String> permissions) {
+                           ToastUtil.show("相机拒绝");
+
+                        }
+                    }).start();
+
+
+
+                }
+                );
 
         etInstallLocation.setCursorVisible(false);
         etInstallLocation.setFocusable(false);
@@ -300,8 +365,10 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
         bluetoothState();
 
 
-        list.add("");
-        mListAdapter = new MyAdapter(InstallLockActivity.this, (ArrayList<String>) list);
+        Scan s=new Scan();
+
+        list.add(new Scan());
+        mListAdapter = new MyAdapter(InstallLockActivity.this,  list);
 //        mListAdapter.setInstallLockList(list);
         mListAdapter.setHasStableIds(true);
         rvInstallLock.setAdapter(mListAdapter);
@@ -312,20 +379,16 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
                         .permission(Permission.WRITE_EXTERNAL_STORAGE, Permission.CAMERA)
                         .onGranted(new Action() {
                             @Override
-
                             public void onAction(List<String> permissions) {
                                 mPositionFlag = position;
+                                Scanposition=position;
+
                                 //申请权限成功
                                 //开启扫一扫界面
-                                if (isEmpty()) {
-
-
-                                    return;
-                                } else {
 
                                     Intent intent = new Intent(InstallLockActivity.this, CaptureActivity.class);
-                                    startActivityForResult(intent, REQUEST_CODE_SCAN_LOCK);
-                                }
+                                    startActivityForResult(intent, 101);
+
                             }
                         }).onDenied(new Action() {
                     @Override
@@ -628,7 +691,7 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
         Log.e("awj RimSuccess =", jsonStr);
         if (result.getCode() == 0) {
             String mac = result.getLockNo();
-            list.set(mPositionFlag, mac);
+            list.get(mPositionFlag).setMac(mac);
             mListAdapter.notifyDataSetChanged();
 
         } else if (result.getCode() == 95598) {
@@ -652,7 +715,7 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
     public void installSuccess(String mac, boolean install) {
 
         if (install) {
-            list.add(0, mac);
+            list.get(0).setMac(mac);
             mListAdapter.notifyDataSetChanged();
 
         }
@@ -704,7 +767,8 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
                 if (FunctionUtils.isFastClick()) {
                     return;
                 }
-                list.add("");
+                Scan scan=new Scan();
+                list.add(scan);
                 mListAdapter.notifyDataSetChanged();
 //                updateData();
                 break;
@@ -739,19 +803,35 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
                     return;
                 }
 
-//                tvSearchOver.setVisibility(View.GONE);
-//                tvSearch.setVisibility(View.VISIBLE);
+//                if (TextUtils.isEmpty(cabinetCode)){
+//                    ToastUtil.show("光交箱码不能未空");
+//                    return;
+//                }
+
+//                if (!cabinetCode.startsWith("GJ")  ||  !(cabinetCode.length()==14)){
+//                    ToastUtil.show("光交箱码格式不正确");
+//                    return;
+//                }
+
+                for (int i = 0; i < list.size(); i++) {
+                    if (!list.get(i).isCheck()){
+                        ToastUtil.show("锁二维码未扫描或者无效状态");
+                        return;
+                    }
+                }
+
+
+
 
 
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i) != null) {
-
-                        mLockNoMap.put("locks[" + i + "].lockNo", list.get(i));
-
+                        mLockNoMap.put("locks[" + i + "].lockNo", list.get(i).getMac());
+                        mLockNoMap.put("locks[" + i + "].cabinetCode", list.get(i).getCode());
                         mCabinetIdMap.put("locks[" + i + "].cabinetId", cabinetId + "");
                     }
-
                 }
+
 
                 mListAdapter.notifyDataSetChanged();
 
@@ -791,27 +871,75 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+       // IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_SCAN_LOCK && resultCode == RESULT_OK) {
+
+        if (requestCode == 101 && resultCode == RESULT_OK) {
             if (data != null) {
-                content = data.getStringExtra(Constant.CODED_CONTENT);
-                LogUtils.e("awj------扫描结果1   " + "position" + mPositionFlag + "=====" + content);
 
 
-                if (content.contains("http://www.wangce.net/smartlock?")) {
+                String content = data.getExtras().getString("SCAN_RESULT");
 
-                    content = content.substring(35);
-                    LogUtils.e("awj------扫描结果1   " + "position" + mPositionFlag + "=====" + content);
-                    getMvpPresenter().clickMacRequest(SpUtils.getString(InstallLockActivity.this, "token", ""), content);
-//                    list.set(mPositionFlag, content);
-//                    mListAdapter.notifyDataSetChanged();
-//                    installMap.refreshDrawableState();
-                } else {
-                    ToastUtil.show(InstallLockActivity.this, "请重新扫描");
+                if (content!=null){
+                    getCode(content);
+                }else {
+                    ToastUtil.show("格式错误，请重新扫描");
                 }
+
+            }
+        }
+
+        if (requestCode == 102 && resultCode == RESULT_OK) {
+            if (data != null) {
+                content = data.getExtras().getString("SCAN_RESULT");
+                cabinetCode=content;
+                btn_scan.setText(cabinetCode);
             }
         }
     }
+
+
+
+    void   getCode(String code){
+        OkHttpClient client=new OkHttpClient().newBuilder().build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(ConstantUrl.PUBLIC_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        HttpService apiService = retrofit.create(HttpService.class);
+        apiService.checkCabinetCode(SpUtils.getString(this, "token", ""),code)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseBean<Boolean>>() {
+                    @Override
+                    public void accept(BaseBean<Boolean> booleanBaseBean) throws Exception {
+
+                        if (booleanBaseBean.getData()){
+                            list.get(Scanposition).setCheck(true);
+                            list.get(Scanposition).setCode(code);
+                            mListAdapter.notifyItemChanged(Scanposition);
+                        }else {
+                            list.remove(Scanposition);
+                            mListAdapter.notifyItemRemoved(Scanposition);
+                        }
+
+
+
+
+
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                    }
+                });
+
+    }
+
+
 
 
     @Override

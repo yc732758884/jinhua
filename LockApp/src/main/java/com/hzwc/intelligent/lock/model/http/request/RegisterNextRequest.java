@@ -1,8 +1,6 @@
 package com.hzwc.intelligent.lock.model.http.request;
 
 
-import android.util.Log;
-
 import com.hzwc.intelligent.lock.model.bean.BaseBean;
 import com.hzwc.intelligent.lock.model.bean.CompanyListBean;
 import com.hzwc.intelligent.lock.model.bean.DepartmentListBean;
@@ -11,7 +9,7 @@ import com.hzwc.intelligent.lock.model.bean.areaBean;
 import com.hzwc.intelligent.lock.model.bean.cityBean;
 import com.hzwc.intelligent.lock.model.http.ConstantUrl;
 import com.hzwc.intelligent.lock.model.http.HttpService;
-import com.hzwc.intelligent.lock.model.utils.SecurityAES;
+import com.hzwc.intelligent.lock.model.utils.SecurityRSA;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,12 +24,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class RegisterNextRequest {
+
+
     private Call<BaseBean> mRegisterCall;
     private Call<CompanyListBean> mCompanyCall;
     private Call<DepartmentListBean> mDepartmentCall;
     private Call<PostListBean> mPostCall;
     private Call<cityBean>  cityBeanCall;
-
     private Call<areaBean>  areaBeanCall;
 
     public RegisterNextRequest() {
@@ -42,11 +41,9 @@ public class RegisterNextRequest {
                 .baseUrl(ConstantUrl.PUBLIC_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
         HttpService apiService = retrofit.create(HttpService.class);
-          String pwd= SecurityAES.encryptAES(password);
-        mRegisterCall = apiService.register( mobile, pwd, name, areaid, postId,code,id);
+        mRegisterCall = apiService.register(SecurityRSA.encode(mobile), SecurityRSA.encode(password), name, areaid, postId,code,id);
         mRegisterCall.enqueue(callback);
     }
 

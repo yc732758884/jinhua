@@ -18,10 +18,7 @@ import com.hzwc.intelligent.lock.model.utils.ToastUtil;
 
 import java.security.acl.LastOwnerException;
 
-import cn.jpush.android.api.CmdMessage;
-import cn.jpush.android.api.CustomMessage;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.NotificationMessage;
+
 import cn.jpush.android.service.JPushMessageReceiver;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +33,8 @@ public class MyJPushReceiver extends JPushMessageReceiver {
     }
 
     private  Context context;
+
+
 
     public Handler handler=new Handler(){
 
@@ -57,57 +56,9 @@ public class MyJPushReceiver extends JPushMessageReceiver {
         }
     };
 
-    @Override
-    public Notification getNotification(Context context, NotificationMessage notificationMessage) {
-        return super.getNotification(context, notificationMessage);
-
-    }
-
-    @Override
-    public void onMessage(Context context, CustomMessage customMessage) {
-        super.onMessage(context, customMessage);
-        this.context=context;
-        loginout(context);
-    }
-
-    @Override
-    public void onNotifyMessageOpened(Context context, NotificationMessage notificationMessage) {
-
-        super.onNotifyMessageOpened(context, notificationMessage);
-    }
-
-    @Override
-    public void onNotifyMessageArrived(Context context, NotificationMessage notificationMessage) {
-
-        super.onNotifyMessageArrived(context, notificationMessage);
 
 
 
-
-    }
-
-    @Override
-    public void onNotifyMessageDismiss(Context context, NotificationMessage notificationMessage) {
-        super.onNotifyMessageDismiss(context, notificationMessage);
-    }
-
-    @Override
-    public void onRegister(Context context, String s) {
-        super.onRegister(context, s);
-
-    }
-
-    @Override
-    public void onConnected(Context context, boolean b) {
-
-        super.onConnected(context, b);
-
-    }
-
-    @Override
-    public void onCommandResult(Context context, CmdMessage cmdMessage) {
-        super.onCommandResult(context, cmdMessage);
-    }
 
      public  void   loginout(Context context){
 

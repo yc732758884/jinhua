@@ -54,12 +54,7 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
     TextView tvSearchOver;
     @BindView(R.id.et_register_name)
     EditText etRegisterName;
-    //    @BindView(R.id.tv_company)
-//    NiceSpinner npCompany;
-//    @BindView(R.id.tv_register_department)
-//    NiceSpinner npRegisterDepartment;
-//    @BindView(R.id.tv_register_post)
-//    NiceSpinner npRegisterPost;
+
     @BindView(R.id.sp_company)
     Spinner spCompany;
 
@@ -106,6 +101,7 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 companyId = dataCompany.get(position).getCompanyId();
+                Log.e("ssssss",companyId+ dataCompany.get(position).getCompanyName());
                 getMvpPresenter().getDepartment(companyId + "");
             }
 
@@ -120,6 +116,8 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 departmentId = dataDepartment.get(position).getDepartmentId();
+
+                Log.e("cccccc",departmentId+ dataDepartment.get(position).getDepartmentName());
                 getMvpPresenter().getPost(departmentId + "");
 
 
@@ -181,7 +179,7 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
         Intent intent = getIntent();
         mobile = intent.getStringExtra("mobile");
         password = intent.getStringExtra("password");
-      verifyCode = intent.getStringExtra("verifyCode");
+       verifyCode = intent.getStringExtra("verifyCode");
 
 //        mobile = "18375325478";
 //        password = "123456";
@@ -225,6 +223,7 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
         Gson gson = new Gson();
         String jsonStr = gson.toJson(result);
         Log.e("awj", "companySuccess =" + jsonStr);
+        dataCompany.clear();
 
         if (result.getCode() == 0) {
 
@@ -253,6 +252,7 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
         Gson gson = new Gson();
         String jsonStr = gson.toJson(result);
         Log.e("awj", "departmentSuccess =" + jsonStr);
+        dataDepartment.clear();
 
         if (result.getCode() == 0) {
 
@@ -279,6 +279,7 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
         Gson gson = new Gson();
         String jsonStr = gson.toJson(result);
         Log.e("awj", "postSuccess =" + jsonStr);
+        dataPost.clear();
 
         if (result.getCode() == 0) {
 
@@ -308,6 +309,7 @@ public class RegisterNextActivity extends AbstractMvpBaseActivity<RegisterNextVi
     @Override
     public void city(cityBean cb) {
         cities=cb.getData();
+
 
 
         List<String> strings = new ArrayList<>();

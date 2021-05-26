@@ -26,19 +26,19 @@ import com.hzwc.intelligent.lock.model.utils.FunctionUtils;
 import com.hzwc.intelligent.lock.model.utils.LogUtils;
 import com.hzwc.intelligent.lock.model.utils.PhoneTextWatcher;
 import com.hzwc.intelligent.lock.model.utils.PhoneUtils;
+import com.hzwc.intelligent.lock.model.utils.SecurityRSA;
 import com.hzwc.intelligent.lock.model.utils.SpUtils;
 import com.hzwc.intelligent.lock.model.utils.ToastUtil;
 import com.hzwc.intelligent.lock.model.view.persenter.MessagePresenter;
 import com.hzwc.intelligent.lock.model.view.view.MessageView;
 import com.hzwc.intelligent.lock.mvpframework.factory.CreatePresenter;
 import com.hzwc.intelligent.lock.mvpframework.view.AbstractMvpBaseActivity;
-import com.yzq.zxinglibrary.common.Constant;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -223,7 +223,7 @@ public class MessageActivity extends AbstractMvpBaseActivity<MessageView, Messag
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             HttpService apiService = retrofit.create(HttpService.class);
-            Call<BaseBean> mVerificationCall = apiService.verification( phonenumber, verifyCode);
+            Call<BaseBean> mVerificationCall = apiService.verification(SecurityRSA.encode(phonenumber), SecurityRSA.encode(verifyCode+""));
             mVerificationCall.enqueue(new Callback<BaseBean>() {
                 @Override
                 public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {

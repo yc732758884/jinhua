@@ -2,7 +2,6 @@ package com.hzwc.intelligent.lock.model.http;
 
 
 import android.content.Entity;
-import android.database.Observable;
 
 import com.hzwc.intelligent.lock.model.bean.AdCodeBean;
 import com.hzwc.intelligent.lock.model.bean.BaseBean;
@@ -39,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.qqtheme.framework.picker.FilePicker;
+import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -89,11 +89,11 @@ public interface HttpService {
 
     // 短信验证码验证
     @POST("app/sms/verification")
-    Call<BaseBean> verification( @Query("phoneNumber") String phonenumber, @Query("verifyCode") int verifyCode);
+    Call<BaseBean> verification( @Query("phoneNumber") String phonenumber, @Query("verifyCode") String verifyCode);
 
     // 修改密码  忘记密码
     @POST("app/forgetPassword")
-    Call<BaseBean> forgetPassword(@Query("mobile") String mobile,@Query("verifyCode") int verifyCode, @Query("password") String password,@Query("appId") String id);
+    Call<BaseBean> forgetPassword(@Query("mobile") String mobile,@Query("verifyCode") String verifyCode, @Query("password") String password,@Query("appId") String id);
 
     // 修改密码  设置
     @POST("app/renameByPassword")
@@ -207,7 +207,8 @@ public interface HttpService {
     @POST("app/employee/getUserInfo")
     Call<MineBean> getUserInfo(@Query("token") String token);
 
-
+    @POST("app/employee/getUserInfo")
+    Observable<MineBean> getUserInfo1(@Query("token") String token);
     // 文字识别
 //    @POST("app/image/imageOCRClient")
 //    Call<MineBean> imageOCRClient(@Query("token") String token);
@@ -305,5 +306,16 @@ public interface HttpService {
     //tuichu
     @POST("app/logout")
     Call<BaseBean>  loginout (@Header("token") String token);
+
+     @GET("app/install/checkCabinetCode")
+    Observable<BaseBean<Boolean>>  checkCabinetCode(@Header("token") String token,@Query("cabinetCode")String code);
+
+     // 关锁  拍照
+     //
+     @Multipart
+@POST("app/unlockApply/closeLockTakePictures")
+Observable<BaseBean>  closeLockTakePictures(@Header("token") String token,@Part("lockNo") String no,
+                                                     @Part("userId") int id,  @Part MultipartBody.Part pic);
+
 
 }
