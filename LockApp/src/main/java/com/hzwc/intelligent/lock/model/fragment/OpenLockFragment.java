@@ -97,11 +97,6 @@ public class OpenLockFragment extends AbstractBaseFragment<OpenLockView, OpenLoc
 
 
 
-
-
-
-
-
         return mView;
     }
 
@@ -212,7 +207,7 @@ public class OpenLockFragment extends AbstractBaseFragment<OpenLockView, OpenLoc
                 UnlocksBean.UnlockBean unlockBean = mUnlockList.get(position);
 
 
-                Log.e("awj unlockBean =","=="+ unlockBean.getLockState());
+                Log.e("sssssss",new Gson().toJson(unlockBean)+"~~~~~~~~~~");
                 if (unlockBean.getLockState() == 2) {//正常开锁
                     Intent intent = new Intent(getActivity(), OpenLockActivity.class);
                     intent.putExtra("isLock", mIsLockMap.get(unlockBean.getLockNo()));

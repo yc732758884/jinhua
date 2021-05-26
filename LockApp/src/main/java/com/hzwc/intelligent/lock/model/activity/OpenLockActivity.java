@@ -38,6 +38,7 @@ import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.hzwc.intelligent.lock.R;
 import com.hzwc.intelligent.lock.model.bean.BaseBean;
+import com.hzwc.intelligent.lock.model.bean.CloseTakePic;
 import com.hzwc.intelligent.lock.model.bluetooth.BleLockProtocol;
 import com.hzwc.intelligent.lock.model.bluetooth.ClientManager;
 import com.hzwc.intelligent.lock.model.http.ConstantUrl;
@@ -139,8 +140,8 @@ public class OpenLockActivity extends AbstractMvpBaseActivity<OpenLockActivityVi
         setContentView(R.layout.activity_open_lock);
         ButterKnife.bind(this);
         mLocationUtils = AmapLocationUtils.getInstace(this);
-        mLockNo="1";
-//        getCode("", "");
+
+        //getCode();
 
 
 
@@ -238,8 +239,11 @@ public class OpenLockActivity extends AbstractMvpBaseActivity<OpenLockActivityVi
         //    sKey=BleLockProtocol.sKey;
 
         mStompClient = getMvpPresenter().connectStomp();
+
         mHandler = new Handler();
         mHandler.postDelayed(r, 0);
+
+
 
 
 
@@ -265,6 +269,7 @@ public class OpenLockActivity extends AbstractMvpBaseActivity<OpenLockActivityVi
 
     //mac设备状态
     private void connecSttate() {
+        Log.e("ssssssss1",mLockNo);
         int status = ClientManager.getClient().getConnectStatus(mLockNo);
 
         if (status == Constants.STATUS_UNKNOWN) {//状态未知
@@ -536,10 +541,11 @@ public class OpenLockActivity extends AbstractMvpBaseActivity<OpenLockActivityVi
             }
         } else if (bytes1[0] == 0x05 && bytes1[1] == 0x0D && bytes1[2] == 0x01) {//主动发送关锁(复位电机)
             if (bytes1[3] == 0x00) {//复位成功
-                ToastUtil.show(this, "关锁成功");
+
                 //  closeLockUpload();
 
                 if (isfirst) {
+                    ToastUtil.show(this, "关锁成功");
                     closeLockUpload();
                     saveLog(sb.toString());
                     isfirst = false;
@@ -687,7 +693,6 @@ public class OpenLockActivity extends AbstractMvpBaseActivity<OpenLockActivityVi
 
     void   getCode(){
 
-
         OkHttpClient client=new OkHttpClient().newBuilder().build();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
@@ -701,28 +706,34 @@ public class OpenLockActivity extends AbstractMvpBaseActivity<OpenLockActivityVi
         String filePath= Environment.getExternalStorageDirectory() + File.separator + "output_image.jpg";
         File outputImage = new File(filePath);
         RequestBody fileBody = RequestBody.create(mediaType, outputImage);
-
-
-
-
-
-
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", outputImage.getName(), fileBody);
-
 
 
         apiService.closeLockTakePictures(SpUtils.getString(this, "token", ""),mLockNo,SpUtils.getInt(this, "userId", -1),
                body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseBean>() {
+                .subscribe(new Consumer<BaseBean<CloseTakePic>>() {
                     @Override
-                    public void accept(BaseBean baseBean) throws Exception {
+                    public void accept(BaseBean<CloseTakePic> baseBean) throws Exception {
                         ToastUtil.show(baseBean.getMsg());
+
                         Log.e("sssss",new Gson().toJson(baseBean));
-//                        if (baseBean.getCode()!=0){
-//                            requestCamera();
-//                        }
+                        if (baseBean.getCode()!=0){
+                            isfirst=true;
+                            requestCamera();
+                        }else {
+                            if (baseBean.getData().getState()==0){
+                                ToastUtil.show(" 箱锁不匹配，请注意查看告警！！");
+                            }
+
+                            if (baseBean.getData().getState()==1){
+                                ToastUtil.show("关锁上报图片已上传！！");
+                            }
+
+
+
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

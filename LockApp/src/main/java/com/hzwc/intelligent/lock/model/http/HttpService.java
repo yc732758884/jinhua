@@ -5,6 +5,7 @@ import android.content.Entity;
 
 import com.hzwc.intelligent.lock.model.bean.AdCodeBean;
 import com.hzwc.intelligent.lock.model.bean.BaseBean;
+import com.hzwc.intelligent.lock.model.bean.CloseTakePic;
 import com.hzwc.intelligent.lock.model.bean.CompanyListBean;
 import com.hzwc.intelligent.lock.model.bean.DepartmentListBean;
 import com.hzwc.intelligent.lock.model.bean.LocationWarnsBean;
@@ -314,8 +315,8 @@ public interface HttpService {
      //
      @Multipart
 @POST("app/unlockApply/closeLockTakePictures")
-Observable<BaseBean>  closeLockTakePictures(@Header("token") String token,@Part("lockNo") String no,
-                                                     @Part("userId") int id,  @Part MultipartBody.Part pic);
+Observable<BaseBean<CloseTakePic>>  closeLockTakePictures(@Header("token") String token, @Part("lockNo") String no,
+                                                          @Part("userId") int id, @Part MultipartBody.Part pic);
 
 
 }

@@ -12,14 +12,14 @@ bugly {
 android {
 
 
-    signingConfigs {
-        debug {
-            storeFile file('D:\\chongqin.keystore')
-            storePassword '123456'
-            keyAlias "chongqinyidong"
-            keyPassword '123456'
-        }
-    }
+//    signingConfigs {
+//        debug {
+//            storeFile file('D:\\chongqin.keystore')
+//            storePassword '123456'
+//            keyAlias "chongqinyidong"
+//            keyPassword '123456'
+//        }
+//    }
     compileSdkVersion 26
     sourceSets {
         main {

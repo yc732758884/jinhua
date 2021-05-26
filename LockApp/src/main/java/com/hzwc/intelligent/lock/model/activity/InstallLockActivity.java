@@ -215,8 +215,6 @@ public class InstallLockActivity extends AbstractMvpBaseActivity<InstallAddLockV
                                         Intent intent = new Intent(InstallLockActivity.this, CaptureActivity.class);
                                         startActivityForResult(intent, 102);
 
-
-
                                     }
 
 
